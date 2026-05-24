@@ -31,7 +31,6 @@ export default function DesktopWindow({
       drag
       dragMomentum={false}
       dragElastic={0}
-      dragHandleClassName="window-titlebar"
       onPointerDown={onFocus}
       initial={{ scale: 0.95, opacity: 0 }}
       animate={{
