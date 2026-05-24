@@ -1,88 +1,365 @@
 "use client";
 
-import React from "react";
-import { FolderOpen, FileText, SquareTerminal, Share2 } from "lucide-react";
-import DesktopIcon from "../components/DesktopIcon";
-import TopAppBar from "../components/TopAppBar";
-import Taskbar from "../components/taskbar/Taskbar";
-import { WindowLayout } from "../components/windowHandler/WindowLayout";
-import WindowHandler from "../components/windowHandler/WindowHandler";
-import { useWindowStore } from "../stores/windowStore";
-import TerminalWindowBody from "../components/windows/TerminalWindow";
-import BackgroundCanvas from "../components/BackgroundCanvas";
-import ProjectExplorer from "../components/windows/projects/ProjectWindow";
-import { ResumeWindow } from "../components/windows/resume/ResumeWindow";
+import React, { useState } from "react";
+import animeSunset from "@/public/backgrounds/anime_sunset_1779584693233.png";
+
+// Components - Desktop UI
+import DesktopNavRail from "@/app/components/desktop/DesktopNavRail";
+import DesktopTaskbar from "@/app/components/desktop/DesktopTaskbar";
+import DesktopWindow from "@/app/components/desktop/DesktopWindow";
+import DesktopTopBar from "../components/desktop/DesktopWindowTopBar";
+
+// Components - Modals & Screens
+import ShutdownScreen from "@/app/components/ShutdownScreen";
+import LaunchMenu from "@/app/components/menus/LaunchMenu";
+import SettingsMenu from "@/app/components/menus/SettingsMenu";
+
+// Components - Window Content
+import SysMonitor from "@/app/components/windows/SysMonitor";
+import PersonalizationWindow from "@/app/components/windows/PersonalizationWindow";
+import LiveWallpaperCanvas from "@/app/components/LiveWallpaperCanvas";
+import BackgroundClock from "../components/BackgroundClock";
+import LoginOverlay from "@/app/components/LoginOverlay";
+
+// Types and utilities
+import { WindowType, WindowState } from "../types/types";
+import { LiveWallpaperType } from "@/app/types/wallpaper";
+import { INITIAL_WINDOW_STATE, RESET_WINDOW_STATE } from "../data/windowConfig";
+import renderWindowContent from "../data/renderWindow";
 
 export default function DashboardPage() {
-  const openWindow = useWindowStore((s) => s.openWindow);
+  // Sound controls
+  const [soundEnabled, setSoundEnabled] = useState(true);
 
-  const windows = useWindowStore((s) => s.windows);
+  // CRT Scanlines state
+  const [crtEnabled, setCrtEnabled] = useState(false);
+
+  // System power state
+  const [isShutDown, setIsShutDown] = useState(false);
+
+  // Menu States
+  const [showLaunchMenu, setShowLaunchMenu] = useState(false);
+  const [showSettingsMenu, setShowSettingsMenu] = useState(false);
+
+  // Window Manager states
+  const [maxZIndex, setMaxZIndex] = useState(10);
+  const [windows, setWindows] =
+    useState<{ [key in WindowType]: WindowState }>(INITIAL_WINDOW_STATE);
+
+  // Personalization theme state
+  const defaultBackground = `url(${animeSunset.src})`;
+  const [activeAccent, setActiveAccent] = useState("#00ff41");
+  const [activeBg, setActiveBg] = useState(defaultBackground);
+  const [activeLiveWallpaper, setActiveLiveWallpaper] =
+    useState<LiveWallpaperType>("none");
+  const [scanlines, setScanlines] = useState(false);
+  const [blurDepth, setBlurDepth] = useState(0);
+  const [dimDepth, setDimDepth] = useState(0.08);
+  // Login overlay (no password required)
+  const [showLogin, setShowLogin] = useState(true);
+
+  const handleApplyTheme = (
+    accent: string,
+    bgType: string,
+    backgroundStyle?: string,
+  ) => {
+    setActiveAccent(accent);
+    setActiveLiveWallpaper((bgType as LiveWallpaperType) || "none");
+    if (backgroundStyle) {
+      setActiveBg(backgroundStyle);
+    }
+  };
+
+  const showScanlines = crtEnabled || scanlines;
+
+  // Web Audio API Synthesizer Feedback
+  const triggerAudioFeedback = (
+    freq = 550,
+    duration = 0.06,
+    type: OscillatorType = "sine",
+  ) => {
+    if (!soundEnabled) return;
+    try {
+      type WebkitAudioContextWindow = Window & {
+        webkitAudioContext?: typeof AudioContext;
+      };
+
+      const audioContextConstructor =
+        window.AudioContext ||
+        (window as WebkitAudioContextWindow).webkitAudioContext;
+      if (!audioContextConstructor) return;
+
+      const audioCtx = new audioContextConstructor();
+      const osc = audioCtx.createOscillator();
+      const gainNode = audioCtx.createGain();
+
+      osc.type = type;
+      osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+
+      gainNode.gain.setValueAtTime(0.06, audioCtx.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(
+        0.0001,
+        audioCtx.currentTime + duration,
+      );
+
+      osc.connect(gainNode);
+      gainNode.connect(audioCtx.destination);
+
+      osc.start();
+      osc.stop(audioCtx.currentTime + duration);
+    } catch (err) {
+      // Ignored if user hasn't interacted yet
+      console.error(err);
+    }
+  };
+
+  // Focus Window State Callback
+  const handleFocusWindow = (id: WindowType) => {
+    setWindows((prev) => {
+      const nextZ = maxZIndex + 1;
+      setMaxZIndex(nextZ);
+      return {
+        ...prev,
+        [id]: {
+          ...prev[id],
+          zIndex: nextZ,
+          isMinimized: false,
+        },
+      };
+    });
+  };
+
+  // Launch/Open Window Callback
+  const handleOpenWindow = (id: WindowType) => {
+    triggerAudioFeedback(650, 0.08);
+    setWindows((prev) => {
+      const nextZ = maxZIndex + 1;
+      setMaxZIndex(nextZ);
+      return {
+        ...prev,
+        [id]: {
+          ...prev[id],
+          isOpen: true,
+          isMinimized: false,
+          zIndex: nextZ,
+        },
+      };
+    });
+  };
+
+  // Close Window Callback
+  const handleCloseWindow = (id: WindowType) => {
+    triggerAudioFeedback(400, 0.08);
+    setWindows((prev) => ({
+      ...prev,
+      [id]: {
+        ...prev[id],
+        isOpen: false,
+      },
+    }));
+  };
+
+  // Minimize Window Callback
+  const handleMinimizeWindow = (id: WindowType) => {
+    triggerAudioFeedback(450, 0.06);
+    setWindows((prev) => ({
+      ...prev,
+      [id]: {
+        ...prev[id],
+        isMinimized: true,
+      },
+    }));
+  };
+
+  // Maximize Window Callback
+  const handleMaximizeWindow = (id: WindowType) => {
+    triggerAudioFeedback(520, 0.08);
+    setWindows((prev) => ({
+      ...prev,
+      [id]: {
+        ...prev[id],
+        isMaximized: !prev[id].isMaximized,
+      },
+    }));
+  };
+
+  // Reboot System
+  const handleSystemReboot = () => {
+    setIsShutDown(false);
+    triggerAudioFeedback(900, 0.25, "triangle");
+    // Reload only terminal
+    setWindows(RESET_WINDOW_STATE);
+  };
 
   return (
-    <WindowLayout>
-      <div className="bg-(--color-background) text-(--color-on-surface) h-screen w-screen overflow-hidden flex flex-col font-(--font-body-md) relative">
-        {/* Canvas Wallpaper Element */}
-        <div
-          className="absolute inset-0 z-0 bg-cover bg-center opacity-80 pointer-events-none"
-          style={{
-            backgroundImage: `url("https://lh3.googleusercontent.com/aida-public/AB6AXuA4gjM5j2mdHBL8VyEp9GiqF4QP_RxV1rYYv7Seod-jJ2Jh-CSK06hKHMmndUuGC9cedNNgptA8V1uEbjcJWHVO-xLCgjE2gv6DhxIY2-P6Fy4g30YTKeekl92h-Zs-2SPcTkBKoV0gKbP8jiuLGkqwC6Ou9gwKVfKf4_O19dt7036w_s55H78h6uNyPyrYHaloLu1xa142J0FdMDMp_K354HmaM0VitkP7ruGIMij0cGWFH2OlVrvChqkT-aUKPJVkcHlXgUQCT94")`,
-          }}
-        />
-        <div className="absolute inset-0 z-0 bg-linear-to-br from-(--color-background)/90 via-(--color-background)/60 to-(--color-surface-container-lowest)/90 pointer-events-none" />
+    <div
+      className={`relative w-screen h-screen overflow-hidden bg-neutral-900 select-none flex flex-col text-orange-200/90
+        ${showScanlines ? "scanline-effect" : ""}
+      `}
+    >
+      {showLogin && <LoginOverlay onLogin={() => setShowLogin(false)} />}
+      {isShutDown ? (
+        <ShutdownScreen onReboot={handleSystemReboot} />
+      ) : (
+        /* Standard Running Desktop Environment */
+        <>
+          {/* Background Wallpaper image frame */}
+          <div
+            style={{
+              backgroundImage:
+                activeLiveWallpaper === "none" ? activeBg : undefined,
+              filter:
+                activeLiveWallpaper === "none"
+                  ? `blur(${blurDepth}px)`
+                  : undefined,
+              opacity: activeLiveWallpaper === "none" ? 1 - dimDepth : 1,
+            }}
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-700 pointer-events-none select-none z-0"
+          />
 
-        {/* Top Application Bar */}
-        <TopAppBar />
+          {activeLiveWallpaper !== "none" && (
+            <LiveWallpaperCanvas
+              type={activeLiveWallpaper}
+              accentColor={activeAccent}
+            />
+          )}
 
-        {/* Main Desktop Space Matrix */}
-        <main className="flex-1 relative z-10 p-(--spacing-margin-desktop) grid grid-cols-12 gap-(--spacing-gutter) h-full pb-[calc(var(--spacing-taskbar-height)+var(--spacing-margin-desktop))]">
-          {/* Left Side: Desktop Shortcuts */}
-          <div className="col-span-2 md:col-span-1 flex flex-col gap-6 pt-8 relative z-20">
-            <DesktopIcon
-              icon={FolderOpen}
-              label="Projects"
-              onClick={() =>
-                openWindow({
-                  id: "project-window",
-                  title: "projects",
-                  body: <ProjectExplorer />,
-                })
-              }
+          {/* Top Bar Status Gateway */}
+          <DesktopTopBar
+            onShutDown={() => {
+              triggerAudioFeedback(300, 0.4, "sawtooth");
+              setIsShutDown(true);
+            }}
+            onOpenTerminal={() => handleOpenWindow("terminal")}
+          />
+
+          <div className="flex-1 flex flex-row relative w-full overflow-hidden z-10">
+            {/* Left Vertical App Shelf */}
+            <DesktopNavRail
+              onOpenWindow={handleOpenWindow}
+              activeWindows={{
+                projects: windows.projects.isOpen,
+                resume: windows.resume.isOpen,
+                blog: windows.blog.isOpen,
+                connect: windows.connect.isOpen,
+                personalization: windows.personalization.isOpen,
+                terminal: windows.terminal.isOpen,
+              }}
             />
-            <DesktopIcon
-              icon={FileText}
-              label="Resume"
-              onClick={() =>
-                openWindow({
-                  id: "resume-window",
-                  title: "resume",
-                  body: <ResumeWindow />,
-                })
-              }
-            />
-            <DesktopIcon
-              icon={SquareTerminal}
-              label="Blog"
-              onClick={() =>
-                openWindow({
-                  id: "terminal-window",
-                  title: "terminal",
-                  body: <TerminalWindowBody />,
-                })
-              }
-            />
-            <DesktopIcon icon={Share2} label="Connect" />
+
+            {/* Main Desktop Central Interactive Canvas Stage */}
+            <main className="flex-1 w-full relative z-10 px-5 pt-8 pb-21 overflow-hidden">
+              {/* Center Atmospheric Branding analog clock */}
+              <BackgroundClock />
+
+              {/* Float Static System Monitor (top right, customizable) */}
+              <div className="absolute right-6 top-6 z-20 hidden md:block">
+                <SysMonitor />
+              </div>
+              {/* Draggable/Movable Windows Layer Stack */}
+              {(Object.keys(windows) as WindowType[]).map((winId) => {
+                const win = windows[winId];
+                const windowContent =
+                  winId === "personalization" ? (
+                    <PersonalizationWindow
+                      activeAccent={activeAccent}
+                      onApplyTheme={handleApplyTheme}
+                      activeBg={activeBg}
+                      activeLiveWallpaper={activeLiveWallpaper}
+                      onClose={() => handleCloseWindow("personalization")}
+                      onMinimize={() => handleMinimizeWindow("personalization")}
+                      onMaximize={() => handleMaximizeWindow("personalization")}
+                      isMaximized={win.isMaximized}
+                      scanlines={scanlines}
+                      onSetScanlines={setScanlines}
+                      blurDepth={blurDepth}
+                      onSetBlurDepth={setBlurDepth}
+                      dimDepth={dimDepth}
+                      onSetDimDepth={setDimDepth}
+                    />
+                  ) : (
+                    renderWindowContent(winId, handleOpenWindow)
+                  );
+
+                return (
+                  <DesktopWindow
+                    key={winId}
+                    windowState={win}
+                    onClose={() => handleCloseWindow(winId)}
+                    onMinimize={() => handleMinimizeWindow(winId)}
+                    onMaximize={() => handleMaximizeWindow(winId)}
+                    onFocus={() => handleFocusWindow(winId)}
+                  >
+                    {windowContent}
+                  </DesktopWindow>
+                );
+              })}
+            </main>
           </div>
 
-          {/* Backgruond Canvas */}
-          <BackgroundCanvas />
+          {/* Bottom Taskbar Navigation Accessories Dock */}
+          <div className="shrink-0 relative z-50">
+            <LaunchMenu
+              isOpen={showLaunchMenu}
+              onClose={() => setShowLaunchMenu(false)}
+              onOpenWindow={handleOpenWindow}
+            />
 
-          {/* Right Side Widget Canvas Panel Column */}
-          <WindowHandler />
-        </main>
+            <SettingsMenu
+              isOpen={showSettingsMenu}
+              onClose={() => setShowSettingsMenu(false)}
+              crtEnabled={crtEnabled}
+              onCrtToggle={() => {
+                triggerAudioFeedback(480, 0.08);
+                setCrtEnabled(!crtEnabled);
+              }}
+              soundEnabled={soundEnabled}
+              onSoundToggle={() => {
+                setSoundEnabled(!soundEnabled);
+                // Beep once if enabled to confirm
+                if (!soundEnabled) {
+                  setTimeout(() => {
+                    try {
+                      type WebkitAudioContextWindow = Window & {
+                        webkitAudioContext?: typeof AudioContext;
+                      };
+                      const audioContextConstructor =
+                        window.AudioContext ||
+                        (window as WebkitAudioContextWindow).webkitAudioContext;
+                      if (!audioContextConstructor) return;
 
-        {/* Docked Base Desktop Taskbar */}
-        <Taskbar />
-      </div>
-    </WindowLayout>
+                      const audioCtx = new audioContextConstructor();
+                      const osc = audioCtx.createOscillator();
+                      const gain = audioCtx.createGain();
+                      osc.connect(gain);
+                      gain.connect(audioCtx.destination);
+                      gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+                      osc.start();
+                      osc.stop(audioCtx.currentTime + 0.08);
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  }, 100);
+                }
+              }}
+            />
+
+            <DesktopTaskbar
+              onOpenWindow={handleOpenWindow}
+              onOpenLaunchMenu={() => {
+                triggerAudioFeedback(580, 0.05);
+                setShowLaunchMenu(!showLaunchMenu);
+                setShowSettingsMenu(false);
+              }}
+              onOpenSettingsMenu={() => {
+                triggerAudioFeedback(580, 0.05);
+                setShowSettingsMenu(!showSettingsMenu);
+                setShowLaunchMenu(false);
+              }}
+            />
+          </div>
+        </>
+      )}
+    </div>
   );
 }

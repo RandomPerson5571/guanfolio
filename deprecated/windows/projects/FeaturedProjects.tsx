@@ -1,5 +1,6 @@
 "use client";
 import { ArrowUpRight } from "lucide-react";
+import Image from "next/image";
 import React from "react";
 
 interface FeaturedProjectProps {
@@ -17,14 +18,6 @@ export default function ProjectCardFeatured({
   imageAlt,
   tags,
 }: FeaturedProjectProps) {
-  // const handleCopy = async () => {
-  //   try {
-  //     await navigator.clipboard.writeText(cloneCommand);
-  //   } catch (err) {
-  //     console.error("Failed to copy terminal snippet string: ", err);
-  //   }
-  // };
-
   return (
     <div className="xl:col-span-2 bg-[#1a1a1a]/80 backdrop-blur-md rounded-xl border border-white/10 hover:border-surface-tint/40 transition-all duration-300 group overflow-hidden flex flex-col sm:flex-row shadow-[0_4px_24px_rgba(0,0,0,0.4)] relative">
       {/* Dynamic Hover Matrix Glow */}
@@ -32,8 +25,10 @@ export default function ProjectCardFeatured({
 
       {/* Decorative Branding Frame */}
       <div className="sm:w-1/2 h-48 sm:h-auto relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a]/80 to-transparent z-10 sm:bg-gradient-to-r"></div>
-        <img
+        <div className="absolute inset-0 bg-linear-to-t from-[#1a1a1a]/80 to-transparent z-10 sm:bg-linear-to-r"></div>
+        <Image
+          height={40}
+          width={40}
           src={imageSrc}
           alt={imageAlt}
           className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 transform group-hover:scale-105"

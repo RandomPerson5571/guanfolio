@@ -1,7 +1,7 @@
 "use client";
 
-import { useWindowStore } from "@/app/stores/windowStore";
-import { Minus, Plus, Square, Terminal, X } from "lucide-react";
+import { useWindowStore } from "@/deprecated/stores/windowStore";
+import { Minus, Square, Terminal, X } from "lucide-react";
 import React, { createElement, ReactNode } from "react";
 
 type Props = {

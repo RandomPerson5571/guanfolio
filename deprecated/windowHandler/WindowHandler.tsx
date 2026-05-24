@@ -1,6 +1,6 @@
 "use client";
 
-import { useWindowStore } from "@/app/stores/windowStore";
+import { useWindowStore } from "@/deprecated/stores/windowStore";
 import WindowContainer from "./WindowContainer";
 
 export default function WindowHandler() {

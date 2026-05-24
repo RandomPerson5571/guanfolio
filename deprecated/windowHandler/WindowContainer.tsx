@@ -155,7 +155,10 @@ export default function WindowContainer({ id, children }: Prop) {
       className="window-glass rounded-xl shadow-2xl flex flex-col border border-white/10 overflow-hidden"
     >
       <DraggableTopBar id={id} onPointerDown={onPointerDown} />
-      <div className="flex-1 overflow-auto h-full hide-scrollbar">
+      <div
+        className="flex-1 overflow-auto h-full hide-scrollbar"
+        onClick={bringToFront}
+      >
         {children}
       </div>
       <div
