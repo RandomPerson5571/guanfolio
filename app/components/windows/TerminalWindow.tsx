@@ -4,9 +4,10 @@ import React, { useState, useRef, useEffect } from "react";
 import sailboatTerminal from "@/public/sailboat_terminal_1779584716788.png";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
+import { WindowType } from "@/app/types/types";
 
 interface TerminalWindowProps {
-  onOpenWindow: (id: "projects" | "resume" | "blog" | "connect") => void;
+  onOpenWindow: (id: WindowType) => void;
 }
 
 interface CommandHistoryItem {
@@ -87,6 +88,10 @@ export default function TerminalWindow({ onOpenWindow }: TerminalWindowProps) {
           {
             type: "output",
             text: "  connect                     Initialize secure mail/packet connection protocol",
+          },
+          {
+            type: "output",
+            text: "  personalize                 Trigger opening up a personalization window to customize your user experience",
           },
           {
             type: "output",
@@ -183,6 +188,14 @@ export default function TerminalWindow({ onOpenWindow }: TerminalWindowProps) {
           text: "Establishing secure port 22 tunnel gateway... SUCCESS",
         });
         setTimeout(() => onOpenWindow("connect"), 100);
+        break;
+
+      case "personalize":
+        newItems.push({
+          type: "success",
+          text: "Launching personalization window",
+        });
+        setTimeout(() => onOpenWindow("personalization"), 100);
         break;
 
       case "initialize":

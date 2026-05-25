@@ -24,7 +24,7 @@ export default function ProjectsWindow() {
       {/* Sidebar: Projects List */}
       <div className="w-full md:w-5/12 border-b md:border-b-0 md:border-r border-orange-200/10 flex flex-col h-1/2 md:h-full bg-neutral-950/20">
         {/* Category Tabs */}
-        <div className="p-3 border-b border-orange-200/10 flex flex-nowrap overflow-x-auto gap-1">
+        <div className="custom-scrollbar p-3 border-b border-orange-200/10 flex flex-nowrap overflow-x-auto gap-1">
           {["all", "web", "security", "systems", "intelligence"].map((cat) => (
             <button
               key={cat}
@@ -44,7 +44,7 @@ export default function ProjectsWindow() {
         </div>
 
         {/* List scroll */}
-        <div className="flex-1 overflow-y-auto custom-scrollbar p-2 space-y-1">
+        <div className="flex-1 overflow-y-auto no-scrollbar custom-scrollbar p-2 space-y-1">
           {filteredProjects.map((project) => (
             <div
               key={project.id}

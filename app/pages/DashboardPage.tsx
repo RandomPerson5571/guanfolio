@@ -26,6 +26,8 @@ import { WindowType, WindowState } from "../types/types";
 import { LiveWallpaperType } from "@/app/types/wallpaper";
 import { INITIAL_WINDOW_STATE, RESET_WINDOW_STATE } from "../data/windowConfig";
 import renderWindowContent from "../data/renderWindow";
+import { DesktopIcons } from "../data/desktopIcons";
+import DesktopIcon from "../components/desktop/DesktopIcon";
 
 export default function DashboardPage() {
   // Sound controls
@@ -237,7 +239,7 @@ export default function DashboardPage() {
 
           <div className="flex flex-col md:flex-row relative h-screen w-full overflow-hidden z-10">
             {/* Left Vertical App Shelf */}
-            <DesktopNavRail
+            {/* <DesktopNavRail
               onOpenWindow={handleOpenWindow}
               activeWindows={{
                 projects: windows.projects.isOpen,
@@ -247,9 +249,35 @@ export default function DashboardPage() {
                 personalization: windows.personalization.isOpen,
                 terminal: windows.terminal.isOpen,
               }}
-            />
+            /> */}
+            {/* {DesktopIcons.map((icon) => (
+              <div key={icon.id} className="pointer-events-auto">
+                <DesktopIcon
+                  desktopIcon={icon}
+                  onOpenWindow={handleOpenWindow}
+                  windowActive={windows[icon.id].isOpen}
+                />
+              </div>
+            ))} */}
+
             {/* Main Desktop Central Interactive Canvas Stage */}
             <main className="flex-1 w-full relative z-10 px-5 pt-8 pb-21 overflow-hidden">
+              {/* DESKTOP ICONS LAYER (Responsive, Behind Windows, Clickable) */}
+              <div className="pt-20 absolute inset-0 p-4 flex flex-col flex-wrap gap-4 content-start z-0 pointer-events-none">
+                {DesktopIcons.map((icon) => (
+                  <div
+                    key={icon.id}
+                    className="pointer-events-auto w-20 h-24 flex items-start justify-center"
+                  >
+                    <DesktopIcon
+                      desktopIcon={icon}
+                      onOpenWindow={handleOpenWindow}
+                      windowActive={windows[icon.id].isOpen}
+                    />
+                  </div>
+                ))}
+              </div>
+
               {/* Center Atmospheric Branding analog clock */}
               <BackgroundClock />
 

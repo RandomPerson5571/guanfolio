@@ -278,16 +278,20 @@ body {
 
 /* Custom scrollbar matching styling guide */
 .custom-scrollbar::-webkit-scrollbar {
-  width: 6px;
+  width: 4px; /* Controls thickness of vertical scrollbars */
+  height: 4px; /* Controls thickness of horizontal scrollbars */
 }
+
 .custom-scrollbar::-webkit-scrollbar-track {
   background: rgba(0, 0, 0, 0.2);
   border-radius: 4px;
 }
+
 .custom-scrollbar::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.12);
   border-radius: 4px;
 }
+
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.25);
 }
@@ -348,4 +352,39 @@ body {
   box-shadow:
     0 0 20px rgba(var(--accent-rgb), 0.15),
     0 0 0 1px rgba(var(--accent-rgb), 0.35);
+}
+
+@utility glass-panel {
+  background: rgba(26, 20, 31, 0.4);
+  backdrop-filter: blur(16px) saturate(140%);
+  border: 1px solid rgba(229, 184, 144, 0.15);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
+@utility glass-topbar {
+  background: rgba(22, 17, 26, 0.45);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(229, 184, 144, 0.12);
+}
+
+@utility terminal-panel {
+  background: rgba(16, 12, 19, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(229, 184, 144, 0.18);
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.45);
+}
+
+@utility input-glass {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(229, 184, 144, 0.2);
+  color: #fff8f0;
+}
+
+/* Custom glow effects */
+.glow-text-peach {
+  text-shadow: 0 0 12px rgba(229, 184, 144, 0.4);
+}
+
+.glow-text-pink {
+  text-shadow: 0 0 12px rgba(244, 63, 94, 0.3);
 }
