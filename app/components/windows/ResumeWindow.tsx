@@ -20,7 +20,7 @@ export default function ResumeWindow() {
   return (
     <div className="flex-1 flex flex-col md:flex-row h-full overflow-hidden text-sm">
       {/* Left Column: Summary and Core Skills */}
-      <div className="w-full md:w-5/12 border-b md:border-b-0 md:border-r border-orange-200/10 p-5 flex flex-col justify-between bg-neutral-950/20 overflow-y-auto">
+      <div className="w-full md:w-5/12 border-b md:border-b-0 md:border-r border-orange-200/10 p-5 flex flex-col justify-between bg-neutral-950/20 overflow-y-auto custom-scrollbar">
         <div className="space-y-5">
           <div className="text-center md:text-left space-y-2">
             <span className="text-[10px] font-mono text-orange-300/80 px-2 py-0.5 bg-orange-500/10 rounded-full border border-orange-300/20">
@@ -85,7 +85,7 @@ export default function ResumeWindow() {
       </div>
 
       {/* Right Column: Experience/Education Timeline */}
-      <div className="flex-1 overflow-y-auto p-5 space-y-6 bg-neutral-950/10">
+      <div className="flex-1 overflow-y-auto custom-scrollbar p-5 space-y-6 bg-neutral-950/10">
         {/* Experience Session */}
         <div className="space-y-4">
           <div className="flex items-center gap-2 border-b border-orange-200/10 pb-2">

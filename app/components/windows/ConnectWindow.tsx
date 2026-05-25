@@ -29,7 +29,7 @@ export default function ConnectWindow() {
   return (
     <div className="flex-1 flex flex-col md:flex-row h-full overflow-hidden text-sm">
       {/* Visual coordinates and socials panel (left) */}
-      <div className="w-full md:w-5/12 border-b md:border-b-0 md:border-r border-orange-200/10 p-5 flex flex-col justify-between bg-neutral-950/20 overflow-y-auto">
+      <div className="w-full md:w-5/12 border-b md:border-b-0 md:border-r border-orange-200/10 p-5 flex flex-col justify-between bg-neutral-950/20 overflow-y-auto custom-scrollbar">
         <div className="space-y-5">
           <div>
             <span className="text-[10px] font-mono text-pink-300 bg-pink-500/10 px-2 py-0.5 rounded border border-pink-300/20 uppercase tracking-widest block w-fit mb-2">
@@ -99,7 +99,7 @@ export default function ConnectWindow() {
       </div>
 
       {/* Interactive Form Panel (right) */}
-      <div className="flex-1 overflow-y-auto p-5 md:p-6 bg-neutral-950/10 flex flex-col justify-center">
+      <div className="flex-1 overflow-y-auto custom-scrollbar p-5 md:p-6 bg-neutral-950/10 flex flex-col justify-center">
         {isSubmitted ? (
           <div className="text-center space-y-4 max-w-sm mx-auto p-5 bg-black/30 border border-emerald-500/20 rounded-xl">
             <div className="w-12 h-12 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center mx-auto text-emerald-400">

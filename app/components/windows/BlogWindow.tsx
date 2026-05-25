@@ -11,7 +11,7 @@ export default function BlogWindow() {
   return (
     <div className="flex-1 flex flex-col md:flex-row h-full overflow-hidden text-sm">
       {/* List Panel */}
-      <div className="w-full md:w-5/12 border-b md:border-b-0 md:border-r border-orange-200/10 flex flex-col h-1/2 md:h-full bg-neutral-950/20 overflow-y-auto">
+      <div className="w-full md:w-5/12 border-b md:border-b-0 md:border-r border-orange-200/10 flex flex-col h-1/2 md:h-full bg-neutral-950/20 overflow-y-auto custom-scrollbar">
         <div className="p-3 border-b border-orange-200/10 bg-neutral-950/30">
           <span className="text-[10px] font-mono uppercase tracking-widest text-orange-200/50 block">
             LOG CONTENTS
@@ -62,7 +62,7 @@ export default function BlogWindow() {
       </div>
 
       {/* Reader Panel */}
-      <div className="flex-1 overflow-y-auto p-6 space-y-5 bg-neutral-950/10">
+      <div className="flex-1 overflow-y-auto custom-scrollbar p-6 space-y-5 bg-neutral-950/10">
         {activePost ? (
           <article className="space-y-4">
             {/* Header info */}

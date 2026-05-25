@@ -273,7 +273,7 @@ export default function TerminalWindow({ onOpenWindow }: TerminalWindowProps) {
   return (
     <div className="flex-1 flex flex-col h-full font-mono text-xs p-4 bg-zinc-950/85 overflow-hidden text-orange-200/90 select-text">
       {/* Scrollable logs */}
-      <div className="flex-1 overflow-y-auto space-y-2 pr-1 scrollbar-thin min-h-0">
+      <div className="flex-1 overflow-y-auto space-y-2 pr-1 custom-scrollbar min-h-0">
         {history.map((line, idx) => (
           <div
             key={idx}

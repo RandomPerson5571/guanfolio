@@ -44,7 +44,7 @@ export default function ProjectsWindow() {
         </div>
 
         {/* List scroll */}
-        <div className="flex-1 overflow-y-auto p-2 space-y-1">
+        <div className="flex-1 overflow-y-auto custom-scrollbar p-2 space-y-1">
           {filteredProjects.map((project) => (
             <div
               key={project.id}
@@ -85,7 +85,7 @@ export default function ProjectsWindow() {
       </div>
 
       {/* Main Panel: Active Project Details */}
-      <div className="flex-1 h-1/2 md:h-full overflow-y-auto p-5 flex flex-col justify-between bg-neutral-950/10">
+      <div className="flex-1 h-1/2 md:h-full overflow-y-auto custom-scrollbar p-5 flex flex-col justify-between bg-neutral-950/10">
         {activeProject ? (
           <div className="space-y-4">
             <div className="flex justify-between items-start">

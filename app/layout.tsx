@@ -2,8 +2,64 @@ import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
+import ProjectPreview from "@/public/backgroundPreviews/AnimeBackgroundPreview.png";
+
 export const metadata: Metadata = {
-  title: "OS-style Personal Portfolio",
+  metadataBase: new URL("https://guanfolio.vercel.app/"),
+  title: {
+    default: "Ethan Guan — OS-style Personal Portfolio",
+    template: "%s | Ethan Guan",
+  },
+  description:
+    "Portfolio of Ethan Guan — Grade 11 student at St. Theresa of Lisieux in Richmond Hill, Ontario. Projects, resume, and contact.",
+  keywords: [
+    "Ethan Guan",
+    "personal portfolio",
+    "Grade 11",
+    "Saint Theresa of Lisieux",
+    "Richmond Hill",
+    "Ontario",
+    "student projects",
+    "React",
+    "developer",
+  ],
+  authors: [{ name: "Ethan Guan", url: "https://guanfolio.vercel.app/" }],
+  creator: "Ethan Guan",
+  applicationName: "Ethan Guan — Portfolio",
+  viewport: "width=device-width, initial-scale=1",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+    },
+  },
+  openGraph: {
+    title: "Ethan Guan — OS-style Personal Portfolio",
+    description:
+      "Portfolio of Ethan Guan — Grade 11 student at St. Theresa of Lisieux in Richmond Hill, Ontario. Browse projects, resume, and contact information.",
+    url: "https://guanfolio.vercel.app/",
+    siteName: "Ethan Guan",
+    images: [
+      {
+        url: ProjectPreview.src,
+        width: 1200,
+        height: 630,
+        alt: "Ethan Guan — portfolio preview",
+      },
+    ],
+    locale: "en_CA",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Ethan Guan — OS-style Personal Portfolio",
+    description:
+      "Portfolio of Ethan Guan — Grade 11 student at St. Theresa of Lisieux in Richmond Hill, Ontario.",
+    images: [ProjectPreview.src],
+  },
 };
 
 const inter = Inter({

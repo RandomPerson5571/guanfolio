@@ -165,7 +165,7 @@ export default function PersonalizationWindow({
         </div>
 
         {/* Tab Links */}
-        <nav className="flex flex-row md:flex-col gap-1 w-full overflow-x-auto md:overflow-x-visible px-4 md:px-0">
+        <nav className="flex flex-row md:flex-col gap-1 w-full overflow-x-auto custom-scrollbar md:overflow-x-visible px-4 md:px-0">
           <button
             onClick={() => setActiveTab("background")}
             className={`flex items-center gap-3 px-4 py-3 border-b-2 md:border-b-0 md:border-l-2 transition-all duration-200 shrink-0 text-left cursor-pointer ${
