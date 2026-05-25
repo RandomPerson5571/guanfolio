@@ -50,10 +50,6 @@ export default function DesktopTopBar({
               <span>Launch Console</span>
             </button>
             <button
-              onClick={() => {
-                alert("Port 3000 diagnostics channel: ACTIVE.");
-                setIsSessionOpen(false);
-              }}
               id="topbar-menu-diag"
               className="w-full text-left px-2.5 py-1.5 hover:bg-orange-300/10 rounded flex items-center gap-2 text-orange-200/80 hover:text-orange-100 transition-colors cursor-pointer"
             >
@@ -84,7 +80,6 @@ export default function DesktopTopBar({
       {/* Right side connection indicators */}
       <div className="flex items-center gap-4 text-orange-200/60 font-semibold text-xs">
         <button
-          onClick={() => alert("WLAN Gateway: AES-256 Connected at 450Mbps.")}
           id="topbar-wifi-btn"
           className="hover:text-orange-100 p-1 rounded hover:bg-white/5 transition-all text-orange-300/85 cursor-pointer"
           title="WiFi status"
@@ -92,11 +87,6 @@ export default function DesktopTopBar({
           <Wifi className="w-4 h-4" />
         </button>
         <button
-          onClick={() =>
-            alert(
-              "Diagnostic Telemetry logs: Check interactive terminal bash command neofetch!",
-            )
-          }
           id="topbar-bell-btn"
           className="hover:text-orange-100 p-1 rounded hover:bg-white/5 transition-all text-amber-300/85 relative cursor-pointer"
           title="Unresolved telemetry updates"

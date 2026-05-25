@@ -225,15 +225,17 @@ export default function DashboardPage() {
           )}
 
           {/* Top Bar Status Gateway */}
-          <DesktopTopBar
-            onShutDown={() => {
-              triggerAudioFeedback(300, 0.4, "sawtooth");
-              setIsShutDown(true);
-            }}
-            onOpenTerminal={() => handleOpenWindow("terminal")}
-          />
+          <div className="fixed top-0 w-full block">
+            <DesktopTopBar
+              onShutDown={() => {
+                triggerAudioFeedback(300, 0.4, "sawtooth");
+                setIsShutDown(true);
+              }}
+              onOpenTerminal={() => handleOpenWindow("terminal")}
+            />
+          </div>
 
-          <div className="flex-1 flex flex-row relative w-full overflow-hidden z-10">
+          <div className="flex flex-col md:flex-row relative h-screen w-full overflow-hidden z-10">
             {/* Left Vertical App Shelf */}
             <DesktopNavRail
               onOpenWindow={handleOpenWindow}
@@ -246,7 +248,6 @@ export default function DashboardPage() {
                 terminal: windows.terminal.isOpen,
               }}
             />
-
             {/* Main Desktop Central Interactive Canvas Stage */}
             <main className="flex-1 w-full relative z-10 px-5 pt-8 pb-21 overflow-hidden">
               {/* Center Atmospheric Branding analog clock */}

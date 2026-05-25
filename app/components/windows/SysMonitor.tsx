@@ -17,7 +17,7 @@ export default function SysMonitor() {
         initial={{ x: 50, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         exit={{ x: 50, opacity: 0 }}
-        className="w-72 rounded-xl border border-orange-200/15 p-4 text-orange-100/90 font-mono text-xs shadow-xl select-none glass-panel"
+        className="pt-11 w-72 rounded-xl border border-orange-200/15 p-4 text-orange-100/90 font-mono text-xs shadow-xl select-none glass-panel"
       >
         {/* Header */}
         <div className="flex justify-between items-center pb-2 mb-3 border-b border-orange-200/10">

@@ -1,8 +1,13 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
 import ProjectPreview from "@/public/backgroundPreviews/AnimeBackgroundPreview.png";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://guanfolio.vercel.app/"),
@@ -26,7 +31,6 @@ export const metadata: Metadata = {
   authors: [{ name: "Ethan Guan", url: "https://guanfolio.vercel.app/" }],
   creator: "Ethan Guan",
   applicationName: "Ethan Guan — Portfolio",
-  viewport: "width=device-width, initial-scale=1",
   robots: {
     index: true,
     follow: true,

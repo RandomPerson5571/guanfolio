@@ -155,35 +155,6 @@
   height: 0;
 }
 
-.custom-scrollbar {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(101, 76, 172, 0.35) transparent;
-}
-
-.custom-scrollbar::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(68, 49, 120, 0.1);
-  border-radius: 9999px;
-  border: 2px solid transparent;
-  background-clip: content-box;
-}
-
-.custom-scrollbar:hover::-webkit-scrollbar-thumb {
-  background: rgba(255, 163, 0, 0.42);
-}
-
-.custom-scrollbar::-webkit-scrollbar-corner {
-  background: transparent;
-}
-
 @keyframes blink {
   0%,
   100% {
@@ -216,7 +187,7 @@
 @utility cursor-blink {
   animation: blink 1s step-end infinite;
 }
-
+/* 
 @utility term-scroll {
   &::-webkit-scrollbar {
     width: 6px;
@@ -231,7 +202,7 @@
       background: rgba(0, 230, 57, 0.5);
     }
   }
-}
+} */
 
 @keyframes blink {
   0%,
@@ -303,4 +274,78 @@ body {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* Custom scrollbar matching styling guide */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* Glassmorphism backing structure */
+.mica-glass {
+  background: rgba(20, 21, 26, 0.62);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* CRT monitor lines animated scan filter */
+.scanlines-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+  background-size: 100% 4px;
+  z-index: 999;
+  pointer-events: none;
+  animation: scanlineScroll 28s linear infinite;
+}
+
+@keyframes scanlineScroll {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 100%;
+  }
+}
+
+/* CRT screen subtle flickering effect */
+.crt-flicker-on {
+  animation: crtFlicker 0.15s infinite;
+}
+
+@keyframes crtFlicker {
+  0% {
+    opacity: 0.99;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.995;
+  }
+}
+
+/* General dynamic styling properties */
+:root {
+  --theme-accent: #00ff41;
+}
+
+/* Interactive dragging handles for virtual desktop windows */
+.active-window-highlight {
+  box-shadow:
+    0 0 20px rgba(var(--accent-rgb), 0.15),
+    0 0 0 1px rgba(var(--accent-rgb), 0.35);
 }
