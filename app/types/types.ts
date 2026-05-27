@@ -19,6 +19,14 @@ export interface WindowState {
   height?: number;
 }
 
+export type ProjectStatus =
+  | "In-Progress" // Replaces "Active" / "Work-In-Progress" (actively being built)
+  | "Maintained" // Done, but actively getting bug fixes/updates
+  | "Active"
+  | "Completed" // Replaces "Finished" (done, stable, no further work needed)
+  | "Deprecated" // Replaces "Unmaintained" (legacy, no longer supported)
+  | "Paused"; // A healthy alternative for abandoned but not dead projects
+
 export interface Project {
   id: string;
   title: string;
@@ -27,6 +35,7 @@ export interface Project {
   tags: string[];
   link?: string;
   github?: string;
+  status: ProjectStatus[];
   category: "web" | "security" | "intelligence" | "systems";
   stats: string;
   year: string;

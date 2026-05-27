@@ -30,8 +30,7 @@ export const PROJECTS: Project[] = [
     category: "web",
     stats: "Active",
     year: "2026",
-    link: "#",
-    github: "https://github.com/RandomPerson5571",
+    status: ["Completed"],
   },
   {
     id: "eeg-analysis-research",
@@ -43,8 +42,7 @@ export const PROJECTS: Project[] = [
     category: "intelligence",
     stats: "Research",
     year: "2026",
-    link: "#",
-    github: "https://github.com/RandomPerson5571",
+    status: ["Completed"],
   },
   {
     id: "stl-event-tracker",
@@ -56,8 +54,20 @@ export const PROJECTS: Project[] = [
     category: "systems",
     stats: "Active",
     year: "2026",
-    link: "#",
-    github: "https://github.com/RandomPerson5571",
+    status: ["In-Progress"],
+  },
+  {
+    id: "guanfolio-app",
+    title: "Guanfolio",
+    description: "An OS-styled Personal Portfolio",
+    longDescription: "A personal portfolio",
+    tags: ["Next.js"],
+    category: "web",
+    stats: "Active",
+    year: "2026",
+    link: "https://guanfolio.vercel.app/",
+    github: "https://github.com/RandomPerson5571/guanfolio",
+    status: ["Active", "Maintained"],
   },
 ];
 
@@ -170,5 +180,5 @@ export const EXTRA_SKILLS = {
     "Chinese (Basic Proficiency)",
   ],
   tools: ["Git", "Docker", "PostgreSQL", "REST APIs", "Web Extensions"],
-  interests: ["Piano", "Badminton", "Chess"],
+  interests: ["Piano", "Badminton", "Chess", "Weight Lifting"],
 };
