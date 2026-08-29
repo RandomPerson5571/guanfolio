@@ -8,15 +8,22 @@ import {
   MapPin,
   Wrench,
 } from "lucide-react";
-import {
-  AWARDS,
-  CLIENT_INFO,
-  EDUCATION,
-  EXPERIENCE,
-  EXTRA_SKILLS,
-} from "@/app/data/portfolio";
+import type { PortfolioData } from "@/app/data/portfolio";
 
-export default function ResumeWindow() {
+interface ResumeWindowProps {
+  portfolioData: PortfolioData;
+}
+
+export default function ResumeWindow({ portfolioData }: ResumeWindowProps) {
+  const {
+    awards,
+    clientInfo,
+    education,
+    experience,
+    extraSkills,
+    resumeUrl,
+  } = portfolioData;
+
   return (
     <div className="flex-1 flex flex-col md:flex-row h-full overflow-hidden text-sm">
       {/* Left Column: Summary and Core Skills */}
@@ -24,24 +31,24 @@ export default function ResumeWindow() {
         <div className="space-y-5">
           <div className="text-center md:text-left space-y-2">
             <span className="text-[10px] font-mono text-orange-300/80 px-2 py-0.5 bg-orange-500/10 rounded-full border border-orange-300/20">
-              {CLIENT_INFO.alias}
+              {clientInfo.alias}
             </span>
             <h3 className="text-xl font-display font-medium text-orange-50 mt-1 select-none">
-              {CLIENT_INFO.name}
+              {clientInfo.name}
             </h3>
             <p className="text-xs text-orange-200/60 font-mono tracking-tight leading-relaxed">
-              {CLIENT_INFO.title}
+              {clientInfo.title}
             </p>
           </div>
 
           {/* Location Badge */}
           <div className="flex items-center gap-2 text-xs text-orange-100/50 justify-center md:justify-start">
             <MapPin className="w-3.5 h-3.5 text-orange-300/60" />
-            <span>{CLIENT_INFO.location}</span>
+            <span>{clientInfo.location}</span>
           </div>
 
           <p className="text-xs text-orange-100/80 leading-relaxed font-sans text-center md:text-left">
-            {CLIENT_INFO.bio}
+            {clientInfo.bio}
           </p>
 
           {/* Quick Metrics Progress Panel */}
@@ -50,7 +57,7 @@ export default function ResumeWindow() {
               SYSTEM METRICS
             </span>
             <div className="space-y-2.5">
-              {CLIENT_INFO.skills.map((skill) => (
+              {clientInfo.skills.map((skill) => (
                 <div key={skill.name} className="space-y-1">
                   <div className="flex justify-between items-center text-[11px] font-mono">
                     <span className="text-orange-200/70 select-none">
@@ -74,7 +81,7 @@ export default function ResumeWindow() {
 
         {/* CV Export Button */}
         <a
-          href="/public/resume.pdf"
+          href={resumeUrl}
           download="resume.pdf"
           id="resume-download-btn"
           className="cursor-pointer w-full flex items-center justify-center gap-2 px-3 py-2 bg-linear-to-r from-orange-400/20 to-pink-500/20 hover:from-orange-400/30 hover:to-pink-500/30 border border-orange-300/30 rounded-lg text-xs font-mono text-orange-100 mt-6 transition-all"
@@ -96,8 +103,8 @@ export default function ResumeWindow() {
           </div>
 
           <div className="relative border-l border-orange-300/20 pl-4 ml-2.5 space-y-6 py-1">
-            {EXPERIENCE.map((exp, idx) => (
-              <div key={idx} className="relative group">
+            {experience.map((exp) => (
+              <div key={exp.id} className="relative group">
                 {/* Visual node */}
                 <span className="absolute -left-5.25 top-1.5 w-2.5 h-2.5 rounded-full bg-orange-400 border-2 border-slate-900 group-hover:scale-125 transition-transform" />
 
@@ -132,8 +139,8 @@ export default function ResumeWindow() {
           </div>
 
           <div className="relative border-l border-orange-300/20 pl-4 ml-2.5 space-y-6 py-1">
-            {EDUCATION.map((edu, idx) => (
-              <div key={idx} className="relative group">
+            {education.map((edu) => (
+              <div key={`${edu.school}-${edu.degree}`} className="relative group">
                 {/* Visual node */}
                 <span className="absolute -left-5.25 top-1.5 w-2.5 h-2.5 rounded-full bg-pink-400 border-2 border-slate-900 group-hover:scale-125 transition-transform" />
 
@@ -167,7 +174,7 @@ export default function ResumeWindow() {
             </h4>
           </div>
           <div className="grid grid-cols-2 gap-2 text-xs font-mono">
-            {AWARDS.map((badge) => (
+            {awards.map((badge) => (
               <div
                 key={badge}
                 className="px-3 py-1.5 bg-black/40 border border-orange-200/10 rounded-lg flex items-center gap-2"
@@ -188,7 +195,7 @@ export default function ResumeWindow() {
             </h4>
           </div>
           <div className="grid grid-cols-2 gap-2 text-xs font-mono">
-            {[...EXTRA_SKILLS.languages, ...EXTRA_SKILLS.tools].map((item) => (
+            {[...extraSkills.languages, ...extraSkills.tools].map((item) => (
               <div
                 key={item}
                 className="px-3 py-1.5 bg-black/40 border border-orange-200/10 rounded-lg flex items-center gap-2"
@@ -209,7 +216,7 @@ export default function ResumeWindow() {
             </h4>
           </div>
           <div className="grid grid-cols-2 gap-2 text-xs font-mono">
-            {EXTRA_SKILLS.interests.map((hobby) => (
+            {extraSkills.interests.map((hobby) => (
               <div
                 key={hobby}
                 className="px-3 py-1.5 bg-black/40 border border-orange-200/10 rounded-lg flex items-center gap-2"

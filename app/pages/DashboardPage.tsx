@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import animeSunset from "@/public/backgrounds/anime_sunset_1779584693233.png";
 
 // Components - Desktop UI
-import DesktopNavRail from "@/app/components/desktop/DesktopNavRail";
 import DesktopTaskbar from "@/app/components/desktop/DesktopTaskbar";
 import DesktopWindow from "@/app/components/desktop/DesktopWindow";
 import DesktopTopBar from "../components/desktop/DesktopWindowTopBar";
@@ -28,8 +27,13 @@ import { INITIAL_WINDOW_STATE, RESET_WINDOW_STATE } from "../data/windowConfig";
 import renderWindowContent from "../data/renderWindow";
 import { DesktopIcons } from "../data/desktopIcons";
 import DesktopIcon from "../components/desktop/DesktopIcon";
+import type { PortfolioData } from "../data/portfolio";
 
-export default function DashboardPage() {
+interface DashboardPageProps {
+  portfolioData: PortfolioData;
+}
+
+export default function DashboardPage({ portfolioData }: DashboardPageProps) {
   // Sound controls
   const [soundEnabled, setSoundEnabled] = useState(true);
 
@@ -199,7 +203,12 @@ export default function DashboardPage() {
         ${showScanlines ? "scanline-effect" : ""}
       `}
     >
-      {showLogin && <LoginOverlay onLogin={() => setShowLogin(false)} />}
+      {showLogin && (
+        <LoginOverlay
+          clientInfo={portfolioData.clientInfo}
+          onLogin={() => setShowLogin(false)}
+        />
+      )}
       {isShutDown ? (
         <ShutdownScreen onReboot={handleSystemReboot} />
       ) : (
@@ -307,7 +316,7 @@ export default function DashboardPage() {
                       onSetDimDepth={setDimDepth}
                     />
                   ) : (
-                    renderWindowContent(winId, handleOpenWindow)
+                    renderWindowContent(winId, handleOpenWindow, portfolioData)
                   );
 
                 return (

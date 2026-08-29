@@ -2,9 +2,18 @@
 
 import React, { useState } from "react";
 import { Send, CheckCircle, Mail, MapPin, AlertCircle } from "lucide-react";
-import { CLIENT_INFO, SOCIALS } from "@/app/data/portfolio";
+import type { clientInfo } from "@/app/types/clientInfo";
+import type { SocialLink } from "@/app/types/types";
 
-export default function ConnectWindow() {
+interface ConnectWindowProps {
+  clientInfo: clientInfo;
+  socials: SocialLink[];
+}
+
+export default function ConnectWindow({
+  clientInfo,
+  socials,
+}: ConnectWindowProps) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
@@ -51,15 +60,15 @@ export default function ConnectWindow() {
             <div className="space-y-2 font-mono text-orange-200/80">
               <div className="flex items-center gap-2">
                 <MapPin className="w-3.5 h-3.5 text-orange-300/70" />
-                <span>LOC: {CLIENT_INFO.location}</span>
+                <span>LOC: {clientInfo.location}</span>
               </div>
               <div className="flex items-center gap-2">
                 <Mail className="w-3.5 h-3.5 text-orange-300/70" />
                 <a
-                  href={`mailto:${CLIENT_INFO.email}`}
+                  href={`mailto:${clientInfo.email}`}
                   className="hover:text-orange-200 hover:underline"
                 >
-                  {CLIENT_INFO.email}
+                  {clientInfo.email}
                 </a>
               </div>
             </div>
@@ -71,7 +80,7 @@ export default function ConnectWindow() {
               PUBLIC KEY IDENTITIES
             </span>
             <div className="grid grid-cols-2 gap-2">
-              {SOCIALS.map((soc) => (
+              {socials.map((soc) => (
                 <a
                   key={soc.platform}
                   href={soc.url}

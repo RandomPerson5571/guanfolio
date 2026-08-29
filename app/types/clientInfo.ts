@@ -6,6 +6,7 @@ export interface clientInfo {
   location: string;
   email: string;
   github: string;
+  profileImageUrl?: string;
   skills: {
     name: string;
     level: number;

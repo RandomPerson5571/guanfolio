@@ -3,10 +3,15 @@
 import React, { useState } from "react";
 import { BlogPost } from "../../types/types";
 import { BookOpen, Calendar, Clock, Eye } from "lucide-react";
-import { BLOG_POSTS } from "@/app/data/portfolio";
 
-export default function BlogWindow() {
-  const [activePost, setActivePost] = useState<BlogPost | null>(BLOG_POSTS[0]);
+interface BlogWindowProps {
+  blogPosts: BlogPost[];
+}
+
+export default function BlogWindow({ blogPosts }: BlogWindowProps) {
+  const [activePost, setActivePost] = useState<BlogPost | null>(
+    blogPosts[0] ?? null,
+  );
 
   return (
     <div className="flex-1 flex flex-col md:flex-row h-full overflow-hidden text-sm">
@@ -23,7 +28,7 @@ export default function BlogWindow() {
         </div>
 
         <div className="p-2 space-y-1">
-          {BLOG_POSTS.map((post) => (
+          {blogPosts.map((post) => (
             <div
               key={post.id}
               onClick={() => setActivePost(post)}

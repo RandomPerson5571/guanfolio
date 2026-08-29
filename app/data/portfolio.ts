@@ -1,5 +1,12 @@
 import { clientInfo } from "../types/clientInfo";
-import { Project, BlogPost, SocialLink } from "../types/types";
+import {
+  Project,
+  BlogPost,
+  Education,
+  Experience,
+  ExtraSkills,
+  SocialLink,
+} from "../types/types";
 
 export const CLIENT_INFO: clientInfo = {
   name: "Ethan Guan",
@@ -110,7 +117,7 @@ export const SOCIALS: SocialLink[] = [
 
 // --- NEW RESUME SECTIONS ADDED FOR YOUR COMPONENTS ---
 
-export const EXPERIENCE = [
+export const EXPERIENCE: Experience[] = [
   {
     id: "biology-club",
     role: "Biology Club President",
@@ -152,7 +159,7 @@ export const EXPERIENCE = [
   },
 ];
 
-export const EDUCATION = [
+export const EDUCATION: Education[] = [
   {
     school: "Saint Theresa of Lisieux C.H.S.",
     address: "230 Shaftsbury Ave.",
@@ -173,7 +180,7 @@ export const AWARDS = [
   "Regional Chess Awards. Multiple top 3 placements in competitive tournaments",
 ];
 
-export const EXTRA_SKILLS = {
+export const EXTRA_SKILLS: ExtraSkills = {
   languages: [
     "English (Native Proficiency)",
     "French (Intermediate Proficiency)",
@@ -181,4 +188,28 @@ export const EXTRA_SKILLS = {
   ],
   tools: ["Git", "Docker", "PostgreSQL", "REST APIs", "Web Extensions"],
   interests: ["Piano", "Badminton", "Chess", "Weight Lifting"],
+};
+
+export interface PortfolioData {
+  clientInfo: clientInfo;
+  projects: Project[];
+  blogPosts: BlogPost[];
+  socials: SocialLink[];
+  experience: Experience[];
+  education: Education[];
+  awards: string[];
+  extraSkills: ExtraSkills;
+  resumeUrl: string;
+}
+
+export const FALLBACK_PORTFOLIO_DATA: PortfolioData = {
+  clientInfo: CLIENT_INFO,
+  projects: PROJECTS,
+  blogPosts: BLOG_POSTS,
+  socials: SOCIALS,
+  experience: EXPERIENCE,
+  education: EDUCATION,
+  awards: AWARDS,
+  extraSkills: EXTRA_SKILLS,
+  resumeUrl: "/resume.pdf",
 };

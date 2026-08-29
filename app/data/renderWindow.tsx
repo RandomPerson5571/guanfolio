@@ -4,22 +4,29 @@ import ProjectsWindow from "@/app/components/windows/ProjectsWindow";
 import ResumeWindow from "@/app/components/windows/ResumeWindow";
 import BlogWindow from "@/app/components/windows/BlogWindow";
 import ConnectWindow from "@/app/components/windows/ConnectWindow";
+import type { PortfolioData } from "./portfolio";
 
 const renderWindowContent = (
   id: WindowType,
   handleOpenWindow: (id: WindowType) => void,
+  portfolioData: PortfolioData,
 ) => {
   switch (id) {
     case "terminal":
       return <TerminalWindow onOpenWindow={handleOpenWindow} />;
     case "projects":
-      return <ProjectsWindow />;
+      return <ProjectsWindow projects={portfolioData.projects} />;
     case "resume":
-      return <ResumeWindow />;
+      return <ResumeWindow portfolioData={portfolioData} />;
     case "blog":
-      return <BlogWindow />;
+      return <BlogWindow blogPosts={portfolioData.blogPosts} />;
     case "connect":
-      return <ConnectWindow />;
+      return (
+        <ConnectWindow
+          clientInfo={portfolioData.clientInfo}
+          socials={portfolioData.socials}
+        />
+      );
   }
 };
 

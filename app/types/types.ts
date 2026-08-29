@@ -56,3 +56,25 @@ export interface SocialLink {
   url: string;
   username: string;
 }
+
+export interface Experience {
+  id: string;
+  role: string;
+  organization: string;
+  date: string;
+  description: string;
+}
+
+export interface Education {
+  school: string;
+  address: string;
+  degree: string;
+  date: string;
+  notes: string;
+}
+
+export interface ExtraSkills {
+  languages: string[];
+  tools: string[];
+  interests: string[];
+}

@@ -4,12 +4,17 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { Eye, ArrowRight, Fingerprint, Key } from "lucide-react";
 import { PROFILE_PICTURE } from "../data/avatar";
+import type { clientInfo } from "../types/clientInfo";
 
 interface LoginOverlayProps {
+  clientInfo: clientInfo;
   onLogin: () => void;
 }
 
-export default function LoginOverlay({ onLogin }: LoginOverlayProps) {
+export default function LoginOverlay({
+  clientInfo,
+  onLogin,
+}: LoginOverlayProps) {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   return (
@@ -22,15 +27,15 @@ export default function LoginOverlay({ onLogin }: LoginOverlayProps) {
         <div className="flex flex-col items-center mb-6">
           <div className="w-28 h-28 rounded-full overflow-hidden border-2 border-white/20 avatar-glow mb-4">
             <Image
-              src={PROFILE_PICTURE.src}
-              alt="Avatar"
+              src={clientInfo.profileImageUrl || PROFILE_PICTURE.src}
+              alt={`${clientInfo.name} profile picture`}
               width={112}
               height={112}
               className="object-cover"
             />
           </div>
           <h1 className="font-headline-lg text-headline-lg text-white mb-2 tracking-tight">
-            Ethan Guan
+            {clientInfo.name}
           </h1>
           <p className="text-white/60 text-sm">KALI_USER_SESSION</p>
         </div>

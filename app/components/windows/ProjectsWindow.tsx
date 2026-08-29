@@ -1,23 +1,26 @@
 "use client";
 
 import React, { useState } from "react";
-import { PROJECTS } from "@/app/data/portfolio";
 import { Project } from "../../types/types";
 import { ExternalLink, Terminal } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 
 type Category = "all" | "web" | "security" | "systems" | "intelligence";
 
-export default function ProjectsWindow() {
+interface ProjectsWindowProps {
+  projects: Project[];
+}
+
+export default function ProjectsWindow({ projects }: ProjectsWindowProps) {
   const [selectedCategory, setSelectedCategory] = useState<Category>("all");
   const [activeProject, setActiveProject] = useState<Project | null>(
-    PROJECTS[0],
+    projects[0] ?? null,
   );
 
   const filteredProjects =
     selectedCategory === "all"
-      ? PROJECTS
-      : PROJECTS.filter((p) => p.category === selectedCategory);
+      ? projects
+      : projects.filter((p) => p.category === selectedCategory);
 
   return (
     <div className="flex-1 flex flex-col md:flex-row h-full overflow-hidden text-sm">
