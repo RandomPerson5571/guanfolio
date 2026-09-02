@@ -1,0 +1,146 @@
+[
+  {
+    "_id": "project-clarity-jamhacks26",
+    "_type": "project",
+    "title": "Clarity",
+    "slug": { "_type": "slug", "current": "clarity-jamhacks26" },
+    "description": "A screen-aware AI desktop overlay for navigation, tutoring, accessibility, and on-screen guidance.",
+    "longDescription": "Built for JAMHacks 2026, Clarity combines Electron overlays with Gemini and Ollama planning, Groq-generated interactive learning widgets, local and remote RAG, OCR and Moondream localization, and accessibility tools behind a secure IPC boundary.",
+    "tags": ["Electron 35", "React 19", "Gemini", "Groq", "Ollama", "LanceDB", "Cloudflare Workers"],
+    "category": "intelligence",
+    "stats": "JAMHacks26",
+    "year": "2026",
+    "status": ["Completed"],
+    "order": 1
+  },
+  {
+    "_id": "project-sentry",
+    "_type": "project",
+    "title": "Sentry",
+    "slug": { "_type": "slug", "current": "sentry" },
+    "description": "A local-first macOS execution layer that keeps developers aligned with their work and restores approved context.",
+    "longDescription": "Sentry pairs a React and Tauri desktop client with a token-authenticated FastAPI sidecar, SQLite, and Chroma. It provides focus sessions, drift detection, local corrections, explicit workspace capture, safe context restoration, and privacy-first retention controls.",
+    "tags": ["React 19", "TypeScript", "Tauri 2", "Rust", "FastAPI", "SQLite", "Chroma", "Ollama"],
+    "category": "systems",
+    "stats": "Alpha",
+    "year": "2026",
+    "status": ["In-Progress"],
+    "order": 2
+  },
+  {
+    "_id": "project-guanplanner",
+    "_type": "project",
+    "title": "Guanplanner",
+    "slug": { "_type": "slug", "current": "guanplanner" },
+    "description": "A cross-platform IDE for designing VEX autonomous routines.",
+    "longDescription": "Engineered with React 19, TypeScript, Tauri 2, and SQLite. A GitHub Actions matrix pipeline produces signed macOS, Windows, and Linux releases, while Cloudflare Workers securely proxy auto-updates from private GitHub Releases.",
+    "tags": ["React 19", "TypeScript", "Tauri 2", "SQLite", "GitHub Actions", "Cloudflare Workers"],
+    "category": "systems",
+    "stats": "Active",
+    "year": "2026",
+    "status": ["Active", "Maintained"],
+    "order": 3
+  },
+  {
+    "_id": "project-stl-vex-platform",
+    "_type": "project",
+    "title": "STL VEX Robotics Platform",
+    "slug": { "_type": "slug", "current": "stl-vex-platform" },
+    "description": "A monorepo management platform supporting 200+ members across six VEX robotics sub-teams.",
+    "longDescription": "Built with Turborepo, Supabase, and Prisma; secured backend APIs with Zuplo; integrated RoboEvents schedules and rankings; and automated CAD and code notifications through a Discord bot connected to GitHub and Fusion 360 webhooks.",
+    "tags": ["Turborepo", "Supabase", "Prisma", "Zuplo", "RoboEvents API", "Discord", "GitHub", "Fusion 360"],
+    "category": "systems",
+    "stats": "Active",
+    "year": "2026",
+    "status": ["In-Progress"],
+    "order": 4
+  },
+  {
+    "_id": "project-roboarm",
+    "_type": "project",
+    "title": "RoboArm",
+    "slug": { "_type": "slug", "current": "roboarm" },
+    "description": "A vision-language-action pipeline that controls a custom 5-DOF robotic arm from natural-language commands.",
+    "longDescription": "Combined Groq Whisper, YOLOv11 with OpenVINO, Ollama Llama 3.2, and inverse kinematics. GPU acceleration reached 17.3 ms average detection latency (57.7 FPS) and 27 FPS end-to-end, with Next.js and FastAPI communicating over WebSockets for video, detections, and telemetry.",
+    "tags": ["YOLOv11", "OpenVINO", "Ollama", "Groq Whisper", "Next.js", "FastAPI", "WebSockets", "Inverse Kinematics"],
+    "category": "intelligence",
+    "stats": "Active",
+    "year": "2026",
+    "status": ["In-Progress"],
+    "order": 5
+  },
+  {
+    "_id": "project-ngnhacks-website",
+    "_type": "project",
+    "title": "NGNHacks Website",
+    "slug": { "_type": "slug", "current": "ngnhacks-website" },
+    "description": "The official hackathon website serving 342 participants.",
+    "longDescription": "Developed with Next.js, GSAP, Framer Motion, and Supabase. Also led frontend and API workshops teaching React fundamentals and REST API integration during the event.",
+    "tags": ["Next.js", "GSAP", "Framer Motion", "Supabase", "REST APIs"],
+    "category": "web",
+    "stats": "Live",
+    "year": "2026",
+    "status": ["Completed", "Maintained"],
+    "order": 6
+  },
+  {
+    "_id": "project-connectus",
+    "_type": "project",
+    "title": "Connectus",
+    "slug": { "_type": "slug", "current": "connectus" },
+    "description": "A cross-platform study app that synchronizes Pomodoro sessions between people anywhere in the world.",
+    "longDescription": "Connectus combines live Pomodoro synchronization with chat, community spaces, task management, and calendar planning in one collaborative study experience.",
+    "tags": ["Cross-platform", "Real-time Sync", "Pomodoro", "Chat", "Todo List", "Calendar"],
+    "category": "web",
+    "stats": "Active",
+    "year": "2026",
+    "status": ["In-Progress"],
+    "order": 7
+  },
+  {
+    "_id": "project-eeg-analysis-research",
+    "_type": "project",
+    "title": "EEG-Analysis Research",
+    "slug": { "_type": "slug", "current": "eeg-analysis-research" },
+    "description": "Analyzed EEG patterns to diagnose Alzheimer’s Disease (AD).",
+    "longDescription": "A data science and machine learning research initiative using Python and scikit-learn to identify patterns in EEG brain-wave data associated with Alzheimer’s Disease.",
+    "tags": ["Python", "scikit-learn", "Machine Learning", "Research"],
+    "category": "intelligence",
+    "stats": "Research",
+    "year": "2026",
+    "status": ["Completed"],
+    "order": 8
+  },
+  {
+    "_id": "resume",
+    "_type": "resume",
+    "skills": [
+      { "_key": "skill-react", "_type": "object", "name": "React & Next.js", "level": 95 },
+      { "_key": "skill-ts", "_type": "object", "name": "TypeScript & JavaScript", "level": 94 },
+      { "_key": "skill-db", "_type": "object", "name": "PostgreSQL & Supabase", "level": 94 },
+      { "_key": "skill-ui", "_type": "object", "name": "Tailwind CSS & UI Design", "level": 92 },
+      { "_key": "skill-python", "_type": "object", "name": "Python & Django", "level": 88 },
+      { "_key": "skill-java", "_type": "object", "name": "Java & C++", "level": 88 }
+    ],
+    "experience": [
+      { "_key": "exp-algorithm-alchemists", "_type": "object", "id": { "_type": "slug", "current": "algorithm-alchemists-president" }, "role": "President", "organization": "Algorithm Alchemists", "date": "September 2025 - Present", "description": "Leads club operations, software projects, and curriculum planning." },
+      { "_key": "exp-biology-club", "_type": "object", "id": { "_type": "slug", "current": "biology-club-president" }, "role": "President", "organization": "Biology Club, Saint Theresa of Lisieux C.H.S.", "date": "September 2024 - Present", "description": "Reached over 180 students, averaging approximately 30 attendees per meeting." },
+      { "_key": "exp-stl-education", "_type": "object", "id": { "_type": "slug", "current": "stl-vex-software-education-director" }, "role": "Software Education Director", "organization": "Saint Theresa of Lisieux VEX Robotics", "date": "September 2025 - Present", "description": "Leads software education and technical training for robotics members." },
+      { "_key": "exp-stl-developer", "_type": "object", "id": { "_type": "slug", "current": "stl-robotics-software-developer" }, "role": "Software Developer", "organization": "Saint Theresa of Lisieux VEX Robotics", "date": "May 2026 - Present", "description": "Built a secured Turborepo, Supabase, and Prisma management platform supporting 200+ members across six robotics sub-teams, with RoboEvents data and automated GitHub and Fusion 360 notifications." },
+      { "_key": "exp-gentoo", "_type": "object", "id": { "_type": "slug", "current": "gentoo-general-member" }, "role": "General Member", "organization": "Gentoo", "date": "Present", "description": "Contributes as a general member." },
+      { "_key": "exp-yanlearn", "_type": "object", "id": { "_type": "slug", "current": "yanlearn-tutor" }, "role": "Tutor", "organization": "YanLearn", "date": "March 2026 - Present", "description": "Tutors science and computer science and raised $500 for SickKids through parent donations." },
+      { "_key": "exp-ngnhacks", "_type": "object", "id": { "_type": "slug", "current": "ngnhacks-software-developer" }, "role": "Software Developer", "organization": "NGNHacks", "date": "June 2026 - Present", "description": "Developed the official website serving 342 participants and led workshops on React fundamentals and REST API integration." },
+      { "_key": "exp-eurekahacks", "_type": "object", "id": { "_type": "slug", "current": "eurekahacks-software-developer" }, "role": "Software Developer", "organization": "EurekaHacks", "date": "Present", "description": "Develops software for EurekaHacks." }
+    ],
+    "education": [
+      { "_key": "education-stl", "_type": "object", "school": "Saint Theresa of Lisieux C.H.S.", "address": "230 Shaftsbury Ave.", "degree": "Ontario Secondary School Diploma (OSSD)", "date": "September 2023 - June 2027 (expected)", "notes": "Relevant coursework: Grade 12 Computer Science (final grade: 98%)." }
+    ],
+    "awards": ["Canadian Biology Olympiad (CBO) Silver Medalist", "Canadian Computing Competition (CCC) — Junior Division: 72/75", "Beaver Computing Challenge (BCC) perfect score", "Honour roll (Grades 9-10)", "Math award (Grade 10)", "French award (Grade 10)", "Multiple top-three placements in regional chess tournaments"],
+    "extraSkills": {
+      "_type": "object",
+      "languages": ["English (Native Proficiency)", "French (Intermediate Proficiency)", "Chinese (Basic Proficiency)"],
+      "tools": ["Git", "Docker", "PostgreSQL", "REST APIs", "Web Extensions"],
+      "interests": ["Piano", "Badminton", "Chess", "Weight Lifting"]
+    }
+  }
+]

@@ -3,7 +3,13 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { X } from "lucide-react";
-import { STATS } from "@/app/data/stats";
+
+const impactMetrics = [
+  { value: "200+", label: "members supported" },
+  { value: "342", label: "hackathon participants" },
+  { value: "57.7", label: "vision FPS" },
+  { value: "6", label: "robotics sub-teams" },
+];
 
 export default function SysMonitor() {
   const [isVisible, setIsVisible] = useState(true);
@@ -27,7 +33,7 @@ export default function SysMonitor() {
               <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-500"></span>
             </span>
             <span className="tracking-wider uppercase text-[10px] text-orange-200/60 font-semibold select-none">
-              ⚛ SYS_MONITOR
+              ⚛ IMPACT_MONITOR
             </span>
           </div>
           <button
@@ -39,40 +45,23 @@ export default function SysMonitor() {
           </button>
         </div>
 
-        {/* Channels Stats List */}
-        <div className="space-y-4">
-          {STATS.map((stat) => {
-            const IconComponent = stat.icon;
-            return (
-              <div key={stat.label} className="space-y-1.5 group">
-                <div className="flex justify-between items-center text-[10px] tracking-wide text-orange-200/70 select-none">
-                  <span className="flex items-center gap-1.5 font-semibold">
-                    <IconComponent className="w-3.5 h-3.5 text-orange-300/60" />
-                    {stat.label}
-                  </span>
-                  <span className="font-bold text-orange-300">
-                    {stat.value}%
-                  </span>
-                </div>
-
-                {/* Custom glowing channel loader bar */}
-                <div className="h-2 w-full bg-black/40 rounded-full overflow-hidden border border-orange-200/5 shadow-inner">
-                  <motion.div
-                    initial={{ width: 0 }}
-                    animate={{ width: `${stat.value}%` }}
-                    transition={{ duration: 1.2, ease: "easeOut" }}
-                    className={`h-full bg-linear-to-r ${stat.color} rounded-full`}
-                  />
-                </div>
-              </div>
-            );
-          })}
+        <div className="grid grid-cols-2 gap-px overflow-hidden rounded-md border border-orange-200/10 bg-orange-200/10">
+          {impactMetrics.map((metric) => (
+            <div key={metric.label} className="bg-black/25 p-3">
+              <strong className="block text-lg tracking-tight text-orange-200">
+                {metric.value}
+              </strong>
+              <span className="mt-1 block text-[8px] uppercase leading-tight tracking-wider text-orange-200/45">
+                {metric.label}
+              </span>
+            </div>
+          ))}
         </div>
 
         {/* Telemetry diagnostics footer */}
         <div className="mt-4 pt-3 border-t border-orange-200/10 text-[9px] text-orange-200/30 flex justify-between">
-          <span>PORT: 3000 // UP</span>
-          <span>MEM: 27B/52B</span>
+          <span>PROOF: VERIFIED</span>
+          <span>BUILD: 2026</span>
         </div>
       </motion.div>
     </AnimatePresence>

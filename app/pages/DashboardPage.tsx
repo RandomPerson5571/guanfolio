@@ -18,7 +18,6 @@ import SysMonitor from "@/app/components/windows/SysMonitor";
 import PersonalizationWindow from "@/app/components/windows/PersonalizationWindow";
 import LiveWallpaperCanvas from "@/app/components/LiveWallpaperCanvas";
 import BackgroundClock from "../components/BackgroundClock";
-import LoginOverlay from "@/app/components/LoginOverlay";
 
 // Types and utilities
 import { WindowType, WindowState } from "../types/types";
@@ -28,12 +27,18 @@ import renderWindowContent from "../data/renderWindow";
 import { DesktopIcons } from "../data/desktopIcons";
 import DesktopIcon from "../components/desktop/DesktopIcon";
 import type { PortfolioData } from "../data/portfolio";
+import PortfolioHome from "../components/PortfolioHome";
 
 interface DashboardPageProps {
   portfolioData: PortfolioData;
+  initialDesktopMode?: boolean;
 }
 
-export default function DashboardPage({ portfolioData }: DashboardPageProps) {
+export default function DashboardPage({
+  portfolioData,
+  initialDesktopMode = false,
+}: DashboardPageProps) {
+  const [desktopMode, setDesktopMode] = useState(initialDesktopMode);
   // Sound controls
   const [soundEnabled, setSoundEnabled] = useState(true);
 
@@ -61,8 +66,6 @@ export default function DashboardPage({ portfolioData }: DashboardPageProps) {
   const [scanlines, setScanlines] = useState(false);
   const [blurDepth, setBlurDepth] = useState(0);
   const [dimDepth, setDimDepth] = useState(0.08);
-  // Login overlay (no password required)
-  const [showLogin, setShowLogin] = useState(true);
 
   const handleApplyTheme = (
     accent: string,
@@ -197,18 +200,28 @@ export default function DashboardPage({ portfolioData }: DashboardPageProps) {
     setWindows(RESET_WINDOW_STATE);
   };
 
+  if (!desktopMode) {
+    return (
+      <PortfolioHome
+        portfolioData={portfolioData}
+        onEnterDesktop={() => setDesktopMode(true)}
+      />
+    );
+  }
+
   return (
     <div
       className={`relative w-screen h-screen overflow-hidden bg-neutral-900 select-none flex flex-col text-orange-200/90
         ${showScanlines ? "scanline-effect" : ""}
       `}
     >
-      {showLogin && (
-        <LoginOverlay
-          clientInfo={portfolioData.clientInfo}
-          onLogin={() => setShowLogin(false)}
-        />
-      )}
+      <button
+        type="button"
+        onClick={() => setDesktopMode(false)}
+        className="fixed left-1/2 top-12 z-[1000] -translate-x-1/2 rounded-full border border-white/20 bg-black/70 px-4 py-2 font-mono text-xs font-semibold uppercase tracking-[0.12em] text-white shadow-xl backdrop-blur-md transition hover:border-emerald-400/60 hover:text-emerald-300"
+      >
+        ← Return to portfolio
+      </button>
       {isShutDown ? (
         <ShutdownScreen onReboot={handleSystemReboot} />
       ) : (

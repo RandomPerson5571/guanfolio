@@ -12,11 +12,11 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL("https://guanfolio.vercel.app/"),
   title: {
-    default: "Ethan Guan — OS-style Personal Portfolio",
+    default: "Ethan Guan — Software Developer & Robotics Builder",
     template: "%s | Ethan Guan",
   },
   description:
-    "Portfolio of Ethan Guan — Grade 11 student at St. Theresa of Lisieux in Richmond Hill, Ontario. Projects, resume, and contact.",
+    "Ethan Guan builds robotics systems, intelligent developer tools, and polished software products. Explore selected projects, experience, and contact information.",
   keywords: [
     "Ethan Guan",
     "personal portfolio",
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Ethan Guan — OS-style Personal Portfolio",
+    title: "Ethan Guan — Software Developer & Robotics Builder",
     description:
       "Portfolio of Ethan Guan — Grade 11 student at St. Theresa of Lisieux in Richmond Hill, Ontario. Browse projects, resume, and contact information.",
     url: "https://guanfolio.vercel.app/",
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ethan Guan — OS-style Personal Portfolio",
+    title: "Ethan Guan — Software Developer & Robotics Builder",
     description:
       "Portfolio of Ethan Guan — Grade 11 student at St. Theresa of Lisieux in Richmond Hill, Ontario.",
     images: [ProjectPreview.src],
