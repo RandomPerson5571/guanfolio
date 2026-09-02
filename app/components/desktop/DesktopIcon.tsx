@@ -20,7 +20,9 @@ export default function DesktopIcon({
       key={desktopIcon.id}
       onClick={() => onOpenWindow(desktopIcon.id)}
       id={`nav-item-${desktopIcon.id}`}
-      className="pointer-events-auto flex flex-col items-center justify-center group focus:outline-none cursor-pointer"
+      aria-label={`${isActive ? "Focus" : "Open"} ${desktopIcon.label}`}
+      aria-pressed={isActive}
+      className="pointer-events-auto flex min-h-20 min-w-20 flex-col items-center justify-center rounded-xl group cursor-pointer"
     >
       {/* Visual Icon Outer Container */}
       <div
@@ -33,6 +35,7 @@ export default function DesktopIcon({
               `}
       >
         <IconComponent
+          aria-hidden="true"
           className={`w-6 h-6 stroke-[1.5] transition-transform duration-300 group-hover:scale-115
                   ${isActive ? "text-orange-200 glow-text-peach" : "text-orange-200/60 group-hover:text-orange-200"}
                 `}
@@ -40,8 +43,7 @@ export default function DesktopIcon({
 
         {/* Active Status indicator overlay dots */}
         {isActive && (
-          <span className="absolute bottom-1 right-1 flex h-1.5 w-1.5">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
+          <span aria-hidden="true" className="absolute bottom-1 right-1 flex h-1.5 w-1.5">
             <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-orange-300"></span>
           </span>
         )}

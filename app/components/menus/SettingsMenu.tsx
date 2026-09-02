@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { Volume2, VolumeX } from "lucide-react";
 
 interface SettingsMenuProps {
@@ -20,14 +20,25 @@ export default function SettingsMenu({
   soundEnabled,
   onSoundToggle,
 }: SettingsMenuProps) {
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handleEscape);
+    return () => window.removeEventListener("keydown", handleEscape);
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   return (
-    <div className="fixed bottom-16 left-16 md:left-24 w-80 bg-neutral-950/95 border border-orange-200/15 rounded-xl p-4 shadow-2xl z-40 animate-fade-in backdrop-blur-xl">
+    <div id="desktop-settings-menu" role="dialog" aria-modal="false" aria-label="Desktop preferences" className="fixed bottom-16 left-3 w-[calc(100vw-1.5rem)] max-w-80 bg-neutral-950/95 border border-orange-200/15 rounded-xl p-4 shadow-2xl z-40 animate-fade-in backdrop-blur-xl sm:left-20">
       <div className="pb-2 border-b border-orange-200/10 mb-3 flex justify-between items-center text-[10px] font-mono text-orange-200/40 uppercase">
         <span>DESKTOP_SETTING_PANEL</span>
         <button
+          type="button"
           onClick={onClose}
+          aria-label="Close desktop preferences"
           id="settings-menu-close"
           className="text-rose-400 hover:text-rose-300"
         >
@@ -40,7 +51,9 @@ export default function SettingsMenu({
         <div className="flex justify-between items-center">
           <span className="text-orange-200/80">CRT SCANLINE EFFECT</span>
           <button
+            type="button"
             onClick={onCrtToggle}
+            aria-pressed={crtEnabled}
             id="settings-btn-crt"
             className={`px-2.5 py-1 text-[10px] border rounded transition-all cursor-pointer
               ${
@@ -58,7 +71,9 @@ export default function SettingsMenu({
         <div className="flex justify-between items-center">
           <span className="text-orange-200/80">SPEAKER FEEDBACK</span>
           <button
+            type="button"
             onClick={onSoundToggle}
+            aria-pressed={soundEnabled}
             id="settings-btn-sound"
             className="p-1 rounded hover:bg-white/5 transition-all text-orange-200 flex items-center gap-1.5 cursor-pointer border border-orange-200/10 px-2.5 py-1 text-[10px]"
           >
@@ -80,11 +95,11 @@ export default function SettingsMenu({
         <div className="p-2.5 bg-black/40 border border-orange-200/5 rounded-lg space-y-1 text-[10px] text-orange-200/50">
           <div className="flex justify-between">
             <span>ENVIRONMENT:</span>
-            <span>DEV CONTAINER // PROD READY</span>
+            <span>PORTFOLIO DESKTOP</span>
           </div>
           <div className="flex justify-between">
             <span>THEME:</span>
-            <span>COSMIC SUNSET glassmorphism</span>
+            <span>WARM NIGHT</span>
           </div>
         </div>
       </div>

@@ -19,15 +19,15 @@ export default function TerminalWindow({ onOpenWindow }: TerminalWindowProps) {
   const [history, setHistory] = useState<CommandHistoryItem[]>([
     {
       type: "output",
-      text: "Linux kali 6.1.0-kali7-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.1.20-1kali1 (2023-04-19) x86_64",
+      text: "Ethan Guan Portfolio Console · 2026",
     },
     {
       type: "output",
-      text: "The programs included with the Kali Linux system are free software; the exact distribution terms for each program are described in the individual files in /usr/share/doc/*/copyright.",
+      text: "A keyboard-friendly way to explore projects, experience, and contact details.",
     },
     {
       type: "success",
-      text: 'System initialized successfully. Type "help" to list available commands.',
+      text: 'Ready. Type "help" to see available commands.',
     },
   ]);
   const [inputVal, setInputVal] = useState("");
@@ -45,13 +45,12 @@ export default function TerminalWindow({ onOpenWindow }: TerminalWindowProps) {
 
     // Add to input display
     const newItems: CommandHistoryItem[] = [
-      { type: "input", text: `(root@kali)-[~]─$ ${cmdStr}` },
+      { type: "input", text: `guest@guanfolio:~$ ${cmdStr}` },
     ];
 
     // Shell parsing
     const parts = trimmed.split(" ");
     const cmd = parts[0].toLowerCase();
-    const args = parts.slice(1);
 
     // Save commands history
     setCommandHistory((prev) => [trimmed, ...prev].slice(0, 50));
@@ -60,46 +59,42 @@ export default function TerminalWindow({ onOpenWindow }: TerminalWindowProps) {
     switch (cmd) {
       case "help":
         newItems.push(
-          { type: "output", text: "Available Core Commands:" },
+          { type: "output", text: "Available commands:" },
           {
             type: "output",
-            text: "  help                        Display this terminal assistance",
+            text: "  help                        Show this command list",
           },
           {
             type: "output",
-            text: "  neofetch                    Display system state and credentials information",
+            text: "  profile                     Show a quick portfolio summary",
           },
           {
             type: "output",
-            text: "  initialize                  Execute portfolio initialization sequences",
+            text: "  open                        Open projects and resume together",
           },
           {
             type: "output",
-            text: "  projects                    Trigger opening the project directory explorer",
+            text: "  projects                    Open selected work",
           },
           {
             type: "output",
-            text: "  resume                      Trigger loading professional resume curriculum",
+            text: "  resume                      Open experience and resume",
           },
           {
             type: "output",
-            text: "  blog                        Trigger opening lofi journal notebook",
+            text: "  blog                        Open notes and writing",
           },
           {
             type: "output",
-            text: "  connect                     Initialize secure mail/packet connection protocol",
+            text: "  connect                     Open contact details",
           },
           {
             type: "output",
-            text: "  personalize                 Trigger opening up a personalization window to customize your user experience",
+            text: "  personalize                 Change the desktop appearance",
           },
           {
             type: "output",
-            text: "  clear                       Flush terminal screens logs buffer",
-          },
-          {
-            type: "output",
-            text: "  cat flag.txt                Access confidential system nodes",
+            text: "  clear                       Clear the console",
           },
         );
         break;
@@ -109,51 +104,28 @@ export default function TerminalWindow({ onOpenWindow }: TerminalWindowProps) {
         setInputVal("");
         return;
 
+      case "profile":
       case "neofetch":
         newItems.push(
           {
             type: "success",
-            text: "               .._                  root@kali:~/portfolio",
+            text: "ETHAN GUAN",
           },
           {
             type: "success",
-            text: "             ./oo..                 ---------------------",
+            text: "Software developer · Robotics builder",
           },
           {
             type: "output",
-            text: "           ./oooooo.                OS: Kali Linux SPA Portfolio v2026",
+            text: "Based in Richmond Hill, Ontario",
           },
           {
             type: "output",
-            text: "         ./ooooooooo_               Host: AI Studio Browser Sandbox environment",
+            text: "Focus: robotics, intelligent tools, and useful digital products",
           },
           {
             type: "output",
-            text: "        .oooooooooooo.              Kernel: v6.1.0-browser-safeguard",
-          },
-          {
-            type: "output",
-            text: "       .oooooooooooooo.             Uptime: 2 days, 14 hours, 32 mins",
-          },
-          {
-            type: "output",
-            text: "       `oooooooooooooo`             Shell: react-sh v2.0-secure",
-          },
-          {
-            type: "output",
-            text: "        `oooooooooooo`              Theme: Cosmic Twilight Sunset",
-          },
-          {
-            type: "output",
-            text: "         `ooooooooo`                CPU: React v19 Virtual DOM Orchestrator",
-          },
-          {
-            type: "output",
-            text: "           `oooooo`                 GPU: HTML5 Canvas Context Engine",
-          },
-          {
-            type: "output",
-            text: "             `oo`                   Memory: Sandboxed Chrome V8 engine (512MB limit)",
+            text: "Try: projects, resume, connect, or personalize",
           },
         );
         break;
@@ -198,27 +170,28 @@ export default function TerminalWindow({ onOpenWindow }: TerminalWindowProps) {
         setTimeout(() => onOpenWindow("personalization"), 100);
         break;
 
+      case "open":
       case "initialize":
         newItems.push(
           {
             type: "output",
-            text: "[#] Initializing automated presentation sequences...",
+            text: "Opening portfolio workspace...",
           },
           {
             type: "output",
-            text: "    - telemetry modules check......... [OK]",
+            text: "    - resume........................... ready",
           },
           {
             type: "output",
-            text: "    - server sockets allocation....... [OK]",
+            text: "    - selected projects................ ready",
           },
           {
             type: "output",
-            text: "    - setting up window structures... [OK]",
+            text: "    - window layout.................... ready",
           },
           {
             type: "success",
-            text: "[!] ALL CHANNELS OPERATIONAL. DEPLOYING VISUAL MODALS NOW.",
+            text: "Workspace opened.",
           },
         );
         setTimeout(() => {
@@ -227,29 +200,10 @@ export default function TerminalWindow({ onOpenWindow }: TerminalWindowProps) {
         }, 500);
         break;
 
-      case "cat":
-        if (args[0] === "flag.txt") {
-          newItems.push({
-            type: "success",
-            text: "CONFIDENTIAL FLAG ACQUIRED: KALI{r00t_l0f1_sys_w0rld_g1g_2026}",
-          });
-        } else if (args[0]) {
-          newItems.push({
-            type: "error",
-            text: `cat: ${args[0]}: No such file or encrypted channel`,
-          });
-        } else {
-          newItems.push({
-            type: "error",
-            text: "cat: missing credentials file source",
-          });
-        }
-        break;
-
       default:
         newItems.push({
           type: "error",
-          text: `bash: ${cmd}: command not found. Enter "help" to list valid protocols.`,
+          text: `${cmd}: command not found. Enter "help" to see available commands.`,
         });
     }
 
@@ -306,12 +260,12 @@ export default function TerminalWindow({ onOpenWindow }: TerminalWindowProps) {
           <div className="relative rounded-lg overflow-hidden border border-orange-200/10 bg-neutral-950/40 p-1 w-44 hover:brightness-110 transition-all shadow-lg select-none">
             <Image
               src={sailboatTerminal}
-              alt="Sailboat Logo"
+              alt="Illustration of a sailboat under a night sky"
               referrerPolicy="no-referrer"
               className="w-full h-auto object-cover rounded"
             />
             <div className="absolute bottom-2 left-2 right-2 bg-neutral-950/80 px-2 py-0.5 rounded text-[9px] font-mono border border-orange-300/15 text-center text-orange-200">
-              UPLINK_CARRIER
+              BUILD / EXPLORE
             </div>
           </div>
         </div>
@@ -322,7 +276,7 @@ export default function TerminalWindow({ onOpenWindow }: TerminalWindowProps) {
       {/* Input Prompt Section */}
       <div className="flex items-center gap-2 border-t border-orange-200/10 pt-2 bg-zinc-950/50 shrink-0">
         <span className="text-pink-400 font-semibold select-none flex items-center gap-1">
-          <span>┌─(root@kali)-[~]</span>
+          <span>guest@guanfolio:~</span>
         </span>
       </div>
       <div className="flex items-center gap-2 pb-1 shrink-0">
@@ -333,17 +287,20 @@ export default function TerminalWindow({ onOpenWindow }: TerminalWindowProps) {
           onChange={(e) => setInputVal(e.target.value)}
           onKeyDown={handleKeyDown}
           id="terminal-cli-input"
+          aria-label="Portfolio console command"
           placeholder="Type 'help' and press Enter..."
           className="flex-1 bg-transparent border-none outline-none text-orange-50 font-mono caret-orange-300 placeholder:text-orange-200/20 text-xs py-0.5 select-text"
           autoFocus
         />
         <button
+          type="button"
           onClick={() => executeCommand(inputVal)}
+          aria-label="Run command"
           id="terminal-send-btn"
           className="p-1 hover:bg-white/5 rounded text-orange-300/60 hover:text-orange-300 transition-colors cursor-pointer"
           title="Execute Command"
         >
-          <ArrowRight className="w-3.5 h-3.5" />
+          <ArrowRight aria-hidden="true" className="w-3.5 h-3.5" />
         </button>
       </div>
     </div>

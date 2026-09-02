@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { LiveWallpaperType } from "@/app/types/wallpaper";
 import Image from "next/image";
 import {
@@ -39,15 +39,31 @@ interface PersonalizationWindowProps {
   onSetDimDepth: (val: number) => void;
 }
 
+const getColorName = (hex: string) => {
+  const map: Record<string, string> = {
+    "#00ff41": "Cyber Lime",
+    "#00a1fe": "Electric Blue",
+    "#ffab91": "Sunset Peach",
+    "#ff7043": "Sunset Peach",
+    "#f07050": "Sunset Peach",
+    "#9d00d2": "Neon Purple",
+  };
+  return map[hex.toLowerCase()] || hex;
+};
+
+const getBgName = (imgUrl: string, liveType: LiveWallpaperType) => {
+  if (liveType !== "none") return `Animated ${liveType.toUpperCase()}`;
+  if (imgUrl.includes("ADBb0ugus")) return "Dreamy Sunset";
+  if (imgUrl.includes("ADBb0uim7")) return "Anime Skies";
+  if (imgUrl.includes("ADBb0uhHV")) return "Midnight Neon";
+  return "Custom URL Image";
+};
+
 export default function PersonalizationWindow({
   activeAccent,
   onApplyTheme,
   activeBg,
   activeLiveWallpaper,
-  onClose,
-  onMinimize,
-  onMaximize,
-  isMaximized,
   scanlines,
   onSetScanlines,
   blurDepth,
@@ -61,54 +77,25 @@ export default function PersonalizationWindow({
   const [customColor, setCustomColor] = useState(activeAccent);
 
   // Terminal compiler typing preview simulation states
-  const [terminalPreviewLines, setTerminalPreviewLines] = useState<string[]>(
-    [],
-  );
+  const [terminalPreviewLines, setTerminalPreviewLines] = useState<string[]>(() => [
+    `root@portfolio:~$ apply-theme --accent="${getColorName(activeAccent)}" --bg="${getBgName(activeBg, activeLiveWallpaper)}"`,
+    `[INFO] Applying workspace appearance...`,
+    `[INFO] Updating interface tokens...`,
+    `✓ Theme updated successfully.`,
+    `root@portfolio:~$ _`,
+  ]);
   const [isCompiling, setIsCompiling] = useState(false);
-
-  // Set initial terminal preview text
-  useEffect(() => {
-    setTerminalPreviewLines([
-      `root@kali:~$ apply-theme --accent="${getColorName(activeAccent)}" --bg="${getBgName(activeBg, activeLiveWallpaper)}"`,
-      `[INFO] Compiling glassmorphism shaders...`,
-      `[INFO] Mapping typography tokens (Inter, JetBrains Mono)...`,
-      `✓ System theme updated successfully.`,
-      `root@kali:~$ _`,
-    ]);
-  }, [activeAccent, activeBg, activeLiveWallpaper]);
-
-  const getColorName = (hex: string) => {
-    const map: Record<string, string> = {
-      "#00ff41": "Cyber Lime",
-      "#00a1fe": "Electric Blue",
-      "#ffab91": "Sunset Peach",
-      "#ff7043": "Sunset Peach",
-      "#f07050": "Sunset Peach",
-      "#9d00d2": "Neon Purple",
-    };
-    return map[hex.toLowerCase()] || hex;
-  };
-
-  const getBgName = (imgUrl: string, liveType: LiveWallpaperType) => {
-    if (liveType !== "none") {
-      return `Animated ${liveType.toUpperCase()}`;
-    }
-    if (imgUrl.includes("ADBb0ugus")) return "Dreamy Sunset";
-    if (imgUrl.includes("ADBb0uim7")) return "Anime Skies";
-    if (imgUrl.includes("ADBb0uhHV")) return "Midnight Neon";
-    return "Custom URL Image";
-  };
 
   const handleSelectWallpaperPreset = (presetUrl: string) => {
     setIsCompiling(true);
 
     // Simulate compilation steps
     const newSteps = [
-      `root@kali:~$ apply-theme --bg="${getBgName(presetUrl, "none")}"`,
+      `guest@guanfolio:~$ apply-theme --bg="${getBgName(presetUrl, "none")}"`,
       `[INFO] Flashing frame buffet static memory pointers...`,
       `[INFO] Re-linking atmospheric canvas shader mapping...`,
       `✓ Wallpaper background updated successfully.`,
-      `root@kali:~$ _`,
+      `guest@guanfolio:~$ _`,
     ];
     setTerminalPreviewLines(newSteps);
     onApplyTheme(
@@ -124,11 +111,11 @@ export default function PersonalizationWindow({
   const handleSelectLiveWallpaper = (type: LiveWallpaperType) => {
     setIsCompiling(true);
     const newSteps = [
-      `root@kali:~$ apply-theme --bg="Live:${type.toUpperCase()}"`,
+      `guest@guanfolio:~$ apply-theme --bg="Live:${type.toUpperCase()}"`,
       `[INFO] Spawning custom canvas render engine threads...`,
       `[INFO] Injecting accent-colored vector parameters (${activeAccent})...`,
       `✓ Live canvas viewport running at 60 FPS.`,
-      `root@kali:~$ _`,
+      `guest@guanfolio:~$ _`,
     ];
     setTerminalPreviewLines(newSteps);
     onApplyTheme(activeAccent, type, undefined, `Live Wallpaper: ${type}`);
@@ -620,29 +607,29 @@ export default function PersonalizationWindow({
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {/* Theme 1: root@kali */}
+                {/* Theme 1 */}
                 <div
                   onClick={() =>
                     onApplyTheme(
                       "#00ff41",
                       "matrix",
                       undefined,
-                      "Default root@kali",
+                      "Field Notes",
                     )
                   }
                   className="p-5 bg-black/30 border border-outline-variant/10 hover:border-[#00ff41] rounded-xl cursor-pointer transition-all duration-300 space-y-3"
                 >
                   <div className="flex justify-between items-center">
                     <h3 className="font-code-sm text-sm font-bold text-white">
-                      Default root@kali
+                      Field Notes
                     </h3>
                     <span className="text-[10px] bg-[#00ff41]/10 text-[#00ff41] font-mono px-2 py-0.5 rounded border border-[#00ff41]/20">
                       STABLE
                     </span>
                   </div>
                   <p className="text-xs text-white/50">
-                    The canonical terminal theme. Fluorescent lime green overlay
-                    highlights with flowing rain cascade digital starfields.
+                    A high-contrast green workspace with a restrained animated
+                    background.
                   </p>
                   <div className="flex gap-2">
                     <span className="w-4 h-4 rounded-full bg-[#00ff41]"></span>
@@ -789,9 +776,8 @@ export default function PersonalizationWindow({
                   let textCol = "";
 
                   // Simple color mapping matching mockup style
-                  if (line.startsWith("root@kali")) {
-                    // split user/cwd highlight as in mockup: root@kali:~# command
-                    const match = line.match(/(root@kali)(:)(~)(\$)(.*)/);
+                  if (line.startsWith("guest@guanfolio")) {
+                    const match = line.match(/(guest@guanfolio)(:)(~)(\$)(.*)/);
                     if (match) {
                       return (
                         <p key={idx}>

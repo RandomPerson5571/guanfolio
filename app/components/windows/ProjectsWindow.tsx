@@ -30,8 +30,10 @@ export default function ProjectsWindow({ projects }: ProjectsWindowProps) {
         <div className="custom-scrollbar p-3 border-b border-orange-200/10 flex flex-nowrap overflow-x-auto gap-1">
           {["all", "web", "security", "systems", "intelligence"].map((cat) => (
             <button
+              type="button"
               key={cat}
               onClick={() => setSelectedCategory(cat as Category)}
+              aria-pressed={selectedCategory === cat}
               id={`project-tab-${cat}`}
               className={`px-2.5 py-1 text-[11px] font-mono tracking-wider uppercase rounded transition-colors whitespace-nowrap
                 ${
@@ -49,9 +51,11 @@ export default function ProjectsWindow({ projects }: ProjectsWindowProps) {
         {/* List scroll */}
         <div className="flex-1 overflow-y-auto no-scrollbar custom-scrollbar p-2 space-y-1">
           {filteredProjects.map((project) => (
-            <div
+            <button
+              type="button"
               key={project.id}
               onClick={() => setActiveProject(project)}
+              aria-pressed={activeProject?.id === project.id}
               id={`project-item-${project.id}`}
               className={`p-3 rounded-lg cursor-pointer transition-all border text-left
                 ${
@@ -82,7 +86,7 @@ export default function ProjectsWindow({ projects }: ProjectsWindowProps) {
                   </span>
                 ))}
               </div>
-            </div>
+            </button>
           ))}
         </div>
       </div>
@@ -140,7 +144,7 @@ export default function ProjectsWindow({ projects }: ProjectsWindowProps) {
                   Status
                 </span>
                 <span className="text-xs font-semibold text-emerald-300 flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                  <span aria-hidden="true" className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
                   {activeProject.status?.join(" / ")}
                   {/* Completed / Maintained */}
                 </span>
@@ -164,9 +168,8 @@ export default function ProjectsWindow({ projects }: ProjectsWindowProps) {
               {activeProject.link && (
                 <a
                   href={activeProject.link}
-                  onClick={(e) => {
-                    e.preventDefault();
-                  }} // Local mock link
+                  target="_blank"
+                  rel="noreferrer"
                   id={`project-btn-live-${activeProject.id}`}
                   className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-linear-to-r from-orange-400/20 to-pink-500/20 border border-orange-300/30 hover:border-orange-300/60 rounded-lg text-xs font-mono text-orange-100 font-medium hover:brightness-110 transition-colors"
                 >

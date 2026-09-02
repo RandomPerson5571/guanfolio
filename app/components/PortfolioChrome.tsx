@@ -38,6 +38,7 @@ export default function PortfolioChrome({
 
   return (
     <div className={`portfolio-shell ${pathname === "/" ? "portfolio-shell-home" : ""}`}>
+      <a className="skip-link" href="#main-content">Skip to main content</a>
       <div className="portfolio-noise" aria-hidden="true" />
       <header className="portfolio-nav">
         <Link className="portfolio-wordmark" href="/" aria-label="Ethan Guan, home">

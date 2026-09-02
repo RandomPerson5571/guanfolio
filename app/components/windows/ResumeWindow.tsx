@@ -51,29 +51,16 @@ export default function ResumeWindow({ portfolioData }: ResumeWindowProps) {
             {clientInfo.bio}
           </p>
 
-          {/* Quick Metrics Progress Panel */}
+          {/* Core toolkit */}
           <div className="space-y-3 pt-3 border-t border-orange-200/10">
             <span className="text-xs font-mono text-orange-200/40 uppercase tracking-widest block">
-              SYSTEM METRICS
+              CORE TOOLKIT
             </span>
-            <div className="space-y-2.5">
+            <div className="flex flex-wrap gap-2">
               {clientInfo.skills.map((skill) => (
-                <div key={skill.name} className="space-y-1">
-                  <div className="flex justify-between items-center text-[11px] font-mono">
-                    <span className="text-orange-200/70 select-none">
-                      {skill.name}
-                    </span>
-                    <span className="text-orange-300 font-medium">
-                      {skill.level}%
-                    </span>
-                  </div>
-                  <div className="h-1.5 w-full bg-black/40 rounded-full overflow-hidden border border-orange-200/5">
-                    <div
-                      className="h-full bg-linear-to-r from-orange-400/40 to-pink-500/50 rounded-full transition-all duration-1000"
-                      style={{ width: `${skill.level}%` }}
-                    />
-                  </div>
-                </div>
+                <span key={skill.name} className="rounded-md border border-orange-200/15 bg-black/30 px-2.5 py-1.5 text-[11px] font-mono text-orange-100/75">
+                  {skill.name}
+                </span>
               ))}
             </div>
           </div>
@@ -86,7 +73,7 @@ export default function ResumeWindow({ portfolioData }: ResumeWindowProps) {
           id="resume-download-btn"
           className="cursor-pointer w-full flex items-center justify-center gap-2 px-3 py-2 bg-linear-to-r from-orange-400/20 to-pink-500/20 hover:from-orange-400/30 hover:to-pink-500/30 border border-orange-300/30 rounded-lg text-xs font-mono text-orange-100 mt-6 transition-all"
         >
-          <Download className="w-3.5 h-3.5 animate-bounce" />
+          <Download aria-hidden="true" className="w-3.5 h-3.5" />
           <span>DOWNLOAD_RESUME.PDF</span>
         </a>
       </div>

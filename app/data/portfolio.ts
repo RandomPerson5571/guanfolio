@@ -10,7 +10,7 @@ import {
 
 export const CLIENT_INFO: clientInfo = {
   name: "Ethan Guan",
-  alias: "root@kali",
+  alias: "guanfolio",
   title: "Software Developer × Robotics Builder",
   bio: "I build robotics systems, intelligent developer tools, and polished software products from first prototype to production.",
   location: "Richmond Hill, ON, CA",

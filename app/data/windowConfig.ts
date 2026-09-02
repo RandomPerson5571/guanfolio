@@ -3,7 +3,7 @@ import { WindowType, WindowState } from "../types/types";
 export const INITIAL_WINDOW_STATE: { [key in WindowType]: WindowState } = {
   terminal: {
     id: "terminal",
-    title: "root@kali:~",
+    title: "guest@guanfolio:~",
     isOpen: true,
     isMinimized: false,
     isMaximized: false,
@@ -78,7 +78,7 @@ export const INITIAL_WINDOW_STATE: { [key in WindowType]: WindowState } = {
 export const RESET_WINDOW_STATE: { [key in WindowType]: WindowState } = {
   terminal: {
     id: "terminal",
-    title: "root@kali:~",
+    title: "guest@guanfolio:~",
     isOpen: true,
     isMinimized: false,
     isMaximized: false,

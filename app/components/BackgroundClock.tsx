@@ -23,7 +23,7 @@ export default function BackgroundClock() {
   const brandHourDeg = (brandHours % 12) * 30 + brandMins * 0.5;
 
   return (
-    <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-0">
+    <div aria-hidden="true" className="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-0">
       <div className="flex flex-col md:flex-row items-center gap-4 md:gap-7 opacity-85 select-none scale-90 md:scale-100">
         {/* SVG Ticking analog clock */}
         <svg
@@ -79,10 +79,14 @@ export default function BackgroundClock() {
           <circle cx="50" cy="50" r="2.5" fill="currentColor" />
         </svg>
 
-        {/* Styled Spaced "KALI" text logotype */}
-        <h1 className="text-6xl md:text-8xl font-display font-medium tracking-widest text-orange-200/90 select-none uppercase glow-text-peach select-none">
-          KALI
-        </h1>
+        <div className="flex flex-col">
+          <strong className="text-6xl md:text-8xl font-display font-medium tracking-[0.12em] text-orange-200/90 uppercase glow-text-peach">
+            EG
+          </strong>
+          <span className="mt-1 text-[9px] font-mono uppercase tracking-[0.34em] text-orange-200/45">
+            desktop workspace
+          </span>
+        </div>
       </div>
     </div>
   );

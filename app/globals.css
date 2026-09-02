@@ -1166,6 +1166,139 @@ body {
   }
 }
 
+/* UI/UX Pro Max accessibility and interaction cleanup */
+.skip-link {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 10000;
+  padding: 11px 15px;
+  background: #fff;
+  color: #111;
+  font: 650 12px/1 var(--font-inter), sans-serif;
+  text-decoration: none;
+  transform: translateY(-160%);
+  transition: transform 180ms ease;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+.portfolio-shell :where(a, button, summary, input, textarea, select):focus-visible,
+.desktop-shell :where(a, button, input, textarea, select):focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+.portfolio-shell {
+  scroll-padding-top: 88px;
+}
+
+.ambient-video-control {
+  position: absolute;
+  right: max(20px, 2vw);
+  bottom: 22px;
+  z-index: 6;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 14px;
+  border: 1px solid rgba(255,255,255,.42);
+  border-radius: 999px;
+  background: rgba(0,0,0,.42);
+  color: #fff;
+  font: 650 10px/1 var(--font-inter), sans-serif;
+  letter-spacing: .02em;
+  backdrop-filter: blur(14px);
+  cursor: pointer;
+  transition: background 200ms ease, border-color 200ms ease;
+}
+
+.ambient-video-control:hover {
+  border-color: #fff;
+  background: rgba(0,0,0,.68);
+}
+
+.ambient-video-control svg {
+  width: 14px;
+  height: 14px;
+}
+
+.sq-hero .ambient-video-control {
+  right: max(24px, 5vw);
+  bottom: 62px;
+}
+
+.about-motion-banner .ambient-video-control {
+  right: 20px;
+  bottom: 20px;
+}
+
+@media (max-width: 560px) {
+  .ambient-video-control span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .ambient-video-control {
+    justify-content: center;
+    width: 44px;
+    padding: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-shell,
+  .desktop-shell {
+    scroll-behavior: auto;
+  }
+
+  .skip-link,
+  .ambient-video-control,
+  .portfolio-shell *,
+  .desktop-shell * {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
+
+.desktop-taskbar-launchers {
+  scrollbar-width: none;
+}
+
+.desktop-taskbar-launchers::-webkit-scrollbar {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  .desktop-taskbar {
+    padding-inline: 8px;
+  }
+
+  .desktop-taskbar-accessories {
+    display: none;
+  }
+
+  .desktop-taskbar-launchers {
+    width: 100%;
+  }
+
+  .desktop-mode-label {
+    display: none;
+  }
+
+  .desktop-window .window-titlebar {
+    min-height: 44px;
+  }
+}
+
 @media (max-width: 560px) {
   .portfolio-shell-home .portfolio-nav {
     padding-top: 10px;

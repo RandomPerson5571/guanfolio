@@ -211,17 +211,11 @@ export default function DashboardPage({
 
   return (
     <div
-      className={`relative w-screen h-screen overflow-hidden bg-neutral-900 select-none flex flex-col text-orange-200/90
+      style={{ "--desktop-accent": activeAccent } as React.CSSProperties}
+      className={`desktop-shell relative w-screen h-screen overflow-hidden bg-neutral-900 select-none flex flex-col text-stone-100
         ${showScanlines ? "scanline-effect" : ""}
       `}
     >
-      <button
-        type="button"
-        onClick={() => setDesktopMode(false)}
-        className="fixed left-1/2 top-12 z-[1000] -translate-x-1/2 rounded-full border border-white/20 bg-black/70 px-4 py-2 font-mono text-xs font-semibold uppercase tracking-[0.12em] text-white shadow-xl backdrop-blur-md transition hover:border-emerald-400/60 hover:text-emerald-300"
-      >
-        ← Return to portfolio
-      </button>
       {isShutDown ? (
         <ShutdownScreen onReboot={handleSystemReboot} />
       ) : (
@@ -249,8 +243,9 @@ export default function DashboardPage({
           )}
 
           {/* Top Bar Status Gateway */}
-          <div className="fixed top-0 w-full block">
+          <div className="fixed top-0 z-50 w-full block">
             <DesktopTopBar
+              onExitDesktop={() => setDesktopMode(false)}
               onShutDown={() => {
                 triggerAudioFeedback(300, 0.4, "sawtooth");
                 setIsShutDown(true);
@@ -283,7 +278,7 @@ export default function DashboardPage({
             ))} */}
 
             {/* Main Desktop Central Interactive Canvas Stage */}
-            <main className="flex-1 w-full relative z-10 px-5 pt-8 pb-21 overflow-hidden">
+            <main className="flex-1 w-full relative z-10 px-5 pt-8 pb-21 overflow-hidden" aria-label="Interactive desktop workspace">
               {/* DESKTOP ICONS LAYER (Responsive, Behind Windows, Clickable) */}
               <div className="pt-20 absolute inset-0 p-4 flex flex-col flex-wrap gap-4 content-start z-0 pointer-events-none">
                 {DesktopIcons.map((icon) => (
@@ -396,6 +391,13 @@ export default function DashboardPage({
             />
 
             <DesktopTaskbar
+              activeWindows={Object.fromEntries(
+                (Object.keys(windows) as WindowType[]).map((id) => [
+                  id,
+                  windows[id].isOpen && !windows[id].isMinimized,
+                ]),
+              ) as Record<WindowType, boolean>}
+              launchMenuOpen={showLaunchMenu}
               onOpenWindow={handleOpenWindow}
               onOpenLaunchMenu={() => {
                 triggerAudioFeedback(580, 0.05);
@@ -407,6 +409,7 @@ export default function DashboardPage({
                 setShowSettingsMenu(!showSettingsMenu);
                 setShowLaunchMenu(false);
               }}
+              settingsMenuOpen={showSettingsMenu}
             />
           </div>
         </>

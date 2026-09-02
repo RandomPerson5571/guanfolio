@@ -3,6 +3,7 @@ import Image from "next/image";
 import { ArrowUpRight, Mail, MapPin } from "lucide-react";
 import PortfolioChrome from "../components/PortfolioChrome";
 import Reveal from "../components/Reveal";
+import AmbientVideo from "../components/AmbientVideo";
 import { PROFILE_PICTURE } from "../data/avatar";
 import { getPortfolioData } from "@/sanity/lib/portfolio";
 
@@ -17,7 +18,7 @@ export default async function AboutPage() {
 
   return (
     <PortfolioChrome resumeUrl={data.resumeUrl}>
-      <main className="portfolio-subpage about-page">
+      <main className="portfolio-subpage about-page" id="main-content">
         <div className="about-command" aria-hidden="true">
           <span>ethan@guanine:~$</span> ./about_ethan<span className="terminal-cursor" />
         </div>
@@ -53,9 +54,10 @@ export default async function AboutPage() {
         </Reveal>
 
         <section className="about-motion-banner" aria-label="Design principle">
-          <video autoPlay loop muted playsInline preload="metadata" aria-hidden="true">
-            <source src="/videos/digital-light.mp4" type="video/mp4" />
-          </video>
+          <AmbientVideo
+            src="/videos/digital-light.mp4"
+            controlLabel="design principle background"
+          />
           <div aria-hidden="true" />
           <Reveal>
             <p>Good software disappears into the work.</p>

@@ -29,9 +29,11 @@ export default function BlogWindow({ blogPosts }: BlogWindowProps) {
 
         <div className="p-2 space-y-1">
           {blogPosts.map((post) => (
-            <div
+            <button
+              type="button"
               key={post.id}
               onClick={() => setActivePost(post)}
+              aria-pressed={activePost?.id === post.id}
               id={`blog-item-${post.id}`}
               className={`p-3 rounded-lg cursor-pointer transition-all border text-left
                 ${
@@ -61,7 +63,7 @@ export default function BlogWindow({ blogPosts }: BlogWindowProps) {
                   </span>
                 ))}
               </div>
-            </div>
+            </button>
           ))}
         </div>
       </div>

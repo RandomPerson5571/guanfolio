@@ -13,7 +13,7 @@ export default async function ProjectsPage() {
 
   return (
     <PortfolioChrome resumeUrl={data.resumeUrl}>
-      <main className="portfolio-subpage">
+      <main className="portfolio-subpage" id="main-content">
         <header className="subpage-heading">
           <p className="section-path">~/projects</p>
           <h1>Things I’ve built.</h1>

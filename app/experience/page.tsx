@@ -13,7 +13,7 @@ export default async function ExperiencePage() {
 
   return (
     <PortfolioChrome resumeUrl={data.resumeUrl}>
-      <main>
+      <main id="main-content">
         <section className="portfolio-subpage experience-section subpage-dark">
           <header className="subpage-heading">
             <p className="section-path">~/experience</p>

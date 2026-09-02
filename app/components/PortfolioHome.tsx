@@ -4,6 +4,7 @@ import { FaGithub } from "react-icons/fa";
 import type { PortfolioData } from "../data/portfolio";
 import PortfolioChrome from "./PortfolioChrome";
 import Reveal from "./Reveal";
+import AmbientVideo from "./AmbientVideo";
 
 interface PortfolioHomeProps {
   portfolioData: PortfolioData;
@@ -26,19 +27,14 @@ export default function PortfolioHome({
 
   return (
     <PortfolioChrome onEnterDesktop={onEnterDesktop} resumeUrl={resumeUrl}>
-      <main id="top">
+      <main id="main-content">
         <section className="portfolio-hero portfolio-hero-compact sq-hero" aria-labelledby="hero-title">
-          <video
+          <AmbientVideo
             className="sq-hero-video"
-            autoPlay
-            loop
-            muted
-            playsInline
             preload="auto"
-            aria-hidden="true"
-          >
-            <source src="/videos/robotics-factory.mp4" type="video/mp4" />
-          </video>
+            src="/videos/robotics-factory.mp4"
+            controlLabel="robotics background"
+          />
           <div className="sq-hero-shade" aria-hidden="true" />
           <div className="hero-copy sq-hero-copy">
             <p className="hero-eyebrow">Software developer × robotics builder</p>
@@ -105,9 +101,10 @@ export default function PortfolioHome({
         </section>
 
         <section className="home-contact-strip">
-          <video autoPlay loop muted playsInline preload="metadata" aria-hidden="true">
-            <source src="/videos/digital-light.mp4" type="video/mp4" />
-          </video>
+          <AmbientVideo
+            src="/videos/digital-light.mp4"
+            controlLabel="digital light background"
+          />
           <div className="sq-contact-shade" aria-hidden="true" />
           <Reveal className="sq-contact-content">
             <div>

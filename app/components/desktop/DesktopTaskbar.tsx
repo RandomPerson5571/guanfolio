@@ -8,21 +8,28 @@ import {
   User,
   Settings,
   Volume2,
+  VolumeX,
   Maximize,
   Palette,
 } from "lucide-react";
 import { WindowType } from "../../types/types";
 
 interface DesktopTaskbarProps {
+  activeWindows: Record<WindowType, boolean>;
+  launchMenuOpen?: boolean;
   onOpenWindow: (id: WindowType) => void;
   onOpenLaunchMenu?: () => void;
   onOpenSettingsMenu?: () => void;
+  settingsMenuOpen?: boolean;
 }
 
 export default function DesktopTaskbar({
+  activeWindows,
+  launchMenuOpen = false,
   onOpenWindow,
   onOpenLaunchMenu,
   onOpenSettingsMenu,
+  settingsMenuOpen = false,
 }: DesktopTaskbarProps) {
   const [timeStr, setTimeStr] = useState("");
   const [dateStr, setDateStr] = useState("");
@@ -76,66 +83,81 @@ export default function DesktopTaskbar({
   };
 
   return (
-    <div
+    <nav
       id="desktop-taskbar"
-      className="fixed bottom-0 left-0 right-0 h-16 bg-neutral-950/45 backdrop-blur-3xl border-t border-orange-200/10 flex items-center justify-between px-6 select-none z-50 text-sans font-normal"
+      aria-label="Desktop dock"
+      className="desktop-taskbar fixed bottom-0 left-0 right-0 h-16 bg-neutral-950/70 backdrop-blur-3xl border-t border-white/10 flex items-center justify-between px-3 md:px-5 select-none z-50 text-sans font-normal"
     >
       {/* Quick Launcher Controls (Left) */}
-      <div className="flex items-center gap-3">
+      <div className="desktop-taskbar-launchers flex min-w-0 items-center gap-2 overflow-x-auto md:gap-3">
         <button
+          type="button"
           onClick={onOpenLaunchMenu}
           id="taskbar-btn-grid"
-          className="w-10 h-10 rounded-lg bg-neutral-900/50 hover:bg-neutral-800 border border-orange-200/10 hover:border-orange-200/35 flex items-center justify-center text-orange-200/70 hover:text-orange-100 transition-all cursor-pointer"
-          title="App Lounge"
+          className="w-11 h-11 shrink-0 rounded-lg bg-white/8 hover:bg-white/14 border border-white/10 flex items-center justify-center text-stone-100 transition-colors cursor-pointer"
+          aria-label="Open application menu"
+          aria-expanded={launchMenuOpen}
+          aria-controls="desktop-launch-menu"
         >
-          <LayoutGrid className="w-4 h-4" />
+          <LayoutGrid className="w-4 h-4" aria-hidden="true" />
         </button>
 
         <span className="w-px h-6 bg-orange-200/10"></span>
 
         <button
+          type="button"
           onClick={() => onOpenWindow("terminal")}
           id="taskbar-btn-terminal"
-          className="w-10 h-10 rounded-lg hover:bg-white/5 flex items-center justify-center text-rose-400/80 hover:text-rose-300 transition-all cursor-pointer"
-          title="Simulated Shell Terminal"
+          className={`w-11 h-11 shrink-0 rounded-lg flex items-center justify-center transition-colors cursor-pointer ${activeWindows.terminal ? "bg-white/14 text-white" : "text-stone-300 hover:bg-white/8 hover:text-white"}`}
+          aria-label="Open terminal"
+          aria-pressed={activeWindows.terminal}
         >
-          <Terminal className="w-4.5 h-4.5" />
+          <Terminal className="w-4.5 h-4.5" aria-hidden="true" />
         </button>
 
         <button
+          type="button"
           onClick={() => onOpenWindow("projects")}
           id="taskbar-btn-projects"
-          className="w-10 h-10 rounded-lg hover:bg-white/5 flex items-center justify-center text-orange-300/80 hover:text-orange-200 transition-all cursor-pointer"
-          title="Projects Explorer"
+          className={`w-11 h-11 shrink-0 rounded-lg flex items-center justify-center transition-colors cursor-pointer ${activeWindows.projects ? "bg-white/14 text-white" : "text-stone-300 hover:bg-white/8 hover:text-white"}`}
+          aria-label="Open projects"
+          aria-pressed={activeWindows.projects}
         >
-          <Folder className="w-4.5 h-4.5" />
+          <Folder className="w-4.5 h-4.5" aria-hidden="true" />
         </button>
 
         <button
+          type="button"
           onClick={() => onOpenWindow("resume")}
           id="taskbar-btn-resume"
-          className="w-10 h-10 rounded-lg hover:bg-white/5 flex items-center justify-center text-amber-300/80 hover:text-amber-200 transition-all cursor-pointer"
-          title="Resume Profile"
+          className={`w-11 h-11 shrink-0 rounded-lg flex items-center justify-center transition-colors cursor-pointer ${activeWindows.resume ? "bg-white/14 text-white" : "text-stone-300 hover:bg-white/8 hover:text-white"}`}
+          aria-label="Open resume"
+          aria-pressed={activeWindows.resume}
         >
-          <User className="w-4.5 h-4.5" />
+          <User className="w-4.5 h-4.5" aria-hidden="true" />
         </button>
 
         <button
+          type="button"
           onClick={() => onOpenWindow("personalization")}
           id="taskbar-btn-personalization"
-          className="w-10 h-10 rounded-lg hover:bg-white/5 flex items-center justify-center text-cyan-300/80 hover:text-cyan-200 transition-all cursor-pointer"
-          title="Personalization Console"
+          className={`w-11 h-11 shrink-0 rounded-lg flex items-center justify-center transition-colors cursor-pointer ${activeWindows.personalization ? "bg-white/14 text-white" : "text-stone-300 hover:bg-white/8 hover:text-white"}`}
+          aria-label="Open personalization"
+          aria-pressed={activeWindows.personalization}
         >
-          <Palette className="w-4.5 h-4.5" />
+          <Palette className="w-4.5 h-4.5" aria-hidden="true" />
         </button>
 
         <button
+          type="button"
           onClick={onOpenSettingsMenu}
           id="taskbar-btn-settings"
-          className="w-10 h-10 rounded-lg hover:bg-white/5 flex items-center justify-center text-pink-400/80 hover:text-pink-300 transition-all cursor-pointer"
-          title="Interactive desktop settings configuration"
+          className={`w-11 h-11 shrink-0 rounded-lg flex items-center justify-center transition-colors cursor-pointer ${settingsMenuOpen ? "bg-white/14 text-white" : "text-stone-300 hover:bg-white/8 hover:text-white"}`}
+          aria-label="Open desktop settings"
+          aria-expanded={settingsMenuOpen}
+          aria-controls="desktop-settings-menu"
         >
-          <Settings className="w-4.5 h-4.5" />
+          <Settings className="w-4.5 h-4.5" aria-hidden="true" />
         </button>
       </div>
 
@@ -146,19 +168,21 @@ export default function DesktopTaskbar({
       </div> */}
 
       {/* Accessories / Clock and volume (Right) */}
-      <div className="flex items-center gap-5 text-right select-none">
+      <div className="desktop-taskbar-accessories flex items-center gap-5 text-right select-none">
         {/* Sound Volume control */}
         <div className="flex items-center gap-1.5 text-orange-200/50 hover:text-orange-100 transition-colors">
           <button
+            type="button"
             onClick={() => {
               const newVol = volume === 0 ? 80 : 0;
               setVolume(newVol);
             }}
             id="taskbar-btn-volume"
             className="p-1 rounded hover:bg-white/5 transition-all text-orange-300/80 cursor-pointer text-xs flex gap-1"
-            title="Telemetric signal"
+            aria-label={volume === 0 ? "Unmute interface sounds" : "Mute interface sounds"}
+            aria-pressed={volume === 0}
           >
-            <Volume2 className="w-4 h-4" />
+            {volume === 0 ? <VolumeX className="w-4 h-4" aria-hidden="true" /> : <Volume2 className="w-4 h-4" aria-hidden="true" />}
           </button>
           <span className="text-[10px] font-mono select-none w-5">
             {volume}%
@@ -167,12 +191,13 @@ export default function DesktopTaskbar({
 
         {/* Maximize viewport tool */}
         <button
+          type="button"
           onClick={handleToggleFullscreen}
           id="taskbar-btn-fullscreen"
           className="p-1 hover:bg-white/5 rounded text-orange-200/40 hover:text-orange-100 transition-all cursor-pointer"
-          title="Fullscreen focus override"
+          aria-label="Toggle fullscreen"
         >
-          <Maximize className="w-4 h-4" />
+          <Maximize className="w-4 h-4" aria-hidden="true" />
         </button>
 
         {/* Vertical divider */}
@@ -188,6 +213,6 @@ export default function DesktopTaskbar({
           </span>
         </div>
       </div>
-    </div>
+    </nav>
   );
 }
