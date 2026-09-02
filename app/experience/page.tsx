@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import PortfolioChrome from "../components/PortfolioChrome";
+import Reveal from "../components/Reveal";
 import { getPortfolioData } from "@/sanity/lib/portfolio";
 
 export const metadata: Metadata = {
@@ -19,21 +20,23 @@ export default async function ExperiencePage() {
             <h1>Work with a point to it.</h1>
             <p>I like roles where building, teaching, and leading overlap.</p>
           </header>
-          <div className="experience-list">
-            {data.experience.map((item, index) => (
-              <article key={item.id} className="experience-row">
-                <span className="experience-number">{String(index + 1).padStart(2, "0")}</span>
-                <div>
-                  <h2>{item.organization}</h2>
-                  <p>{item.description}</p>
-                </div>
-                <div className="experience-role">
-                  <strong>{item.role}</strong>
-                  <span>{item.date}</span>
-                </div>
-              </article>
-            ))}
-          </div>
+          <Reveal>
+            <div className="experience-list">
+              {data.experience.map((item, index) => (
+                <article key={item.id} className="experience-row">
+                  <span className="experience-number">{String(index + 1).padStart(2, "0")}</span>
+                  <div>
+                    <h2>{item.organization}</h2>
+                    <p>{item.description}</p>
+                  </div>
+                  <div className="experience-role">
+                    <strong>{item.role}</strong>
+                    <span>{item.date}</span>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </Reveal>
         </section>
 
         <section className="credentials-section">

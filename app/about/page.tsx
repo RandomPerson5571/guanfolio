@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { ArrowUpRight, Mail, MapPin } from "lucide-react";
 import PortfolioChrome from "../components/PortfolioChrome";
+import Reveal from "../components/Reveal";
 import { PROFILE_PICTURE } from "../data/avatar";
 import { getPortfolioData } from "@/sanity/lib/portfolio";
 
@@ -21,6 +22,7 @@ export default async function AboutPage() {
           <span>ethan@guanine:~$</span> ./about_ethan<span className="terminal-cursor" />
         </div>
 
+        <Reveal>
         <section className="about-page-grid" aria-labelledby="about-title">
           <div className="about-portrait">
             <Image
@@ -48,7 +50,19 @@ export default async function AboutPage() {
             </div>
           </div>
         </section>
+        </Reveal>
 
+        <section className="about-motion-banner" aria-label="Design principle">
+          <video autoPlay loop muted playsInline preload="metadata" aria-hidden="true">
+            <source src="/videos/digital-light.mp4" type="video/mp4" />
+          </video>
+          <div aria-hidden="true" />
+          <Reveal>
+            <p>Good software disappears into the work.</p>
+          </Reveal>
+        </section>
+
+        <Reveal>
         <section className="toolkit-section" aria-labelledby="toolkit-title">
           <div>
             <p className="section-path">~/toolkit</p>
@@ -61,6 +75,7 @@ export default async function AboutPage() {
             <div><span>Outside work</span><p>{extraSkills.interests.join(", ")}</p></div>
           </div>
         </section>
+        </Reveal>
 
         <section className="about-contact-card">
           <p>Have a project or a good technical problem?</p>

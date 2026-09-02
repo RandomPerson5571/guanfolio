@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-import ProjectPreview from "@/public/backgroundPreviews/AnimeBackgroundPreview.png";
+import ProjectPreview from "@/public/og.png";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
         url: ProjectPreview.src,
         width: 1200,
         height: 630,
-        alt: "Ethan Guan — portfolio preview",
+        alt: "Ethan Guan — software developer and robotics builder",
       },
     ],
     locale: "en_CA",
